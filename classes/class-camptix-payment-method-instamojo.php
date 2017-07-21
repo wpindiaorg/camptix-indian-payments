@@ -44,7 +44,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			//add_action( 'camptix_checkout_update_post_meta', array( $this, 'save_attendee_info' ), 10, 2 );
 			//add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
 		}
-				//wp_register_script( 'camptix-multi-popup-js', CAMPTIX_INSTAMOJO_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
+				//wp_register_script( 'camptix-multi-popup-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
 				//wp_enqueue_script( 'camptix-multi-popup-js' );
 
 
