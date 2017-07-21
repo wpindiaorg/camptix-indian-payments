@@ -6,6 +6,7 @@
  * This class handles all Instamojo integration for CampTix
  *
  * @category	Class
+ * @package		Camptix Instamojo
  * @author 		Sanyog Shelar (codexdemon)
  */
 
@@ -40,8 +41,8 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 			//add_action( 'camptix_attendee_form_additional_info', array( $this, 'add_phone_field' ), 10, 3 );
 			add_filter( 'camptix_form_register_complete_attendee_object', array( $this, 'add_attendee_info' ), 10, 3 );
-			add_action( 'camptix_checkout_update_post_meta', array( $this, 'save_attendee_info' ), 10, 2 );
-			add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
+			//add_action( 'camptix_checkout_update_post_meta', array( $this, 'save_attendee_info' ), 10, 2 );
+			//add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
 		}
 				//wp_register_script( 'camptix-multi-popup-js', CAMPTIX_INSTAMOJO_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
 				//wp_enqueue_script( 'camptix-multi-popup-js' );
@@ -55,18 +56,18 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		return isset( $this->camptix_options['payment_methods'][ $this->id ] );
 	}
 
-	public function show_attendee_info( $rows, $attendee ) {
-		if ( $attendee_phone = get_post_meta( $attendee->ID, 'tix_phone', true ) ) {
-			$rows[] = array(
-				__( 'Phone Number', 'camptix-instamojo' ),
-				$attendee_phone,
-			);
-		}
+	// public function show_attendee_info( $rows, $attendee ) {
+	// 	if ( $attendee_phone = get_post_meta( $attendee->ID, 'tix_phone', true ) ) {
+	// 		$rows[] = array(
+	// 			__( 'Phone Number', 'camptix-instamojo' ),
+	// 			$attendee_phone,
+	// 		);
+	// 	}
 
 		
-		return $rows;
+	// 	return $rows;
 		
-	}
+	// }
 
 
 	public function add_attendee_info( $attendee, $attendee_info, $current_count ) {
@@ -76,12 +77,13 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 
 		return $attendee;
 	}
+	
 
-	public function save_attendee_info( $attendee_id, $attendee ) {
-		if ( property_exists( $attendee, 'phone' ) ) {
-			update_post_meta( $attendee_id, 'tix_phone', $attendee->phone );
-		}
-	}
+	// public function save_attendee_info( $attendee_id, $attendee ) {
+	// 	if ( property_exists( $attendee, 'phone' ) ) {
+	// 		update_post_meta( $attendee_id, 'tix_phone', $attendee->phone );
+	// 	}
+	// }
 
 	public function add_phone_field( $form_data, $current_count, $tickets_selected_count ) {
 		ob_start();
@@ -263,6 +265,8 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		        // Payment was successful, mark it as successful in your database.
 		        // You can acess payment_request_id, purpose etc here. 
 		        $this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_COMPLETED );
+		        $abcd = $this->payment_result( $_REQUEST['tix_payment_token']);
+		        
 		    }
 		    else{
 		        // Payment was unsuccessful, mark it as failed in your database.
@@ -273,7 +277,9 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		 else{
 		     $this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_PENDING );
 		 }
-
+		 
+print_r($abcd);
+		        die;
 	
 	}
 
@@ -290,6 +296,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			'tix_payment_token' => $payment_token,
 			'tix_payment_method' => 'instamojo',
 		), $this->get_tickets_url() );
+
 
 		$cancel_url = add_query_arg( array(
 			'tix_action' => 'payment_cancel',
@@ -374,7 +381,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			    'email' => $email,
 			    'allow_repeated_payments' => false
 			);
-
+			
 
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
@@ -382,11 +389,13 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			curl_close($ch); 
 
 			$json_decode = json_decode($response , true);
-
-			$long_url = $json_decode['payment_request']['longurl'];
 			
+			if($json_decode['success']){
+			$long_url = $json_decode['payment_request']['longurl'];
 			header('Location:'.$long_url);
 
+				}
+				echo 'Invalid Insatmojo Access Key & Token';
 		return;
 	}
 

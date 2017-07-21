@@ -2,12 +2,11 @@
 /**
  * CampTix RazorPay Payment Method
  *
- * This class handles all RazorPay integration for CampTix
+ * This class handles all Instamojo integration for CampTix
  *
- * @since          0.1
- * @package        CampTix
- * @category       Class
- * @author         _KDC-Labs
+ * @category	Class
+ * @package		Camptix Razorpay
+ * @author 		Sanyog Shelar (codexdemon)
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -208,7 +207,11 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	public function add_order_id_field( $form_heading ) {
 		// $api         = $this->get_razjorpay_api();
 		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', $_POST['tix_tickets_selected'] ) : array();
+		if(isset($_POST['tix_coupon'])){
 		$coupon_id   = sanitize_text_field($_POST['tix_coupon']);
+		}else{
+		    $coupon_id = '';
+		}
 		
 
 		// Order info.
@@ -598,5 +601,3 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		return $order_info;
 	}
 }
-
-
