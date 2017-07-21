@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Camptix Indian Payments
 
 Simple and Flexible payment ticketing for Camptix using Multiple Indian Payment Gateway Solutoin
@@ -16,7 +15,7 @@ License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
 ## Prerequisites
 * Please Install and Activate CampTix Plugin first in your site. Plugin URL (https://wordpress.org/plugins/camptix/)
-* Once you Activated CampTix, Please upload `inr-currency-camptix` to the `/wp-content/plugins/` directory
+* Once you Activated CampTix, Please upload `camptix-indian-payment-gateway` to the `/wp-content/plugins/` directory
 * Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Contributing
