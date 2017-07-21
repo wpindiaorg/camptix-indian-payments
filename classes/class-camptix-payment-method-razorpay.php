@@ -35,7 +35,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @since 0.1
 	 * @var string
 	 */
-	public $name = 'RazorPay';
+	public $name = 'Razorpay';
 
 	/**
 	 * Payment gateway description
@@ -43,7 +43,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @since 0.1
 	 * @var string
 	 */
-	public $description = 'RazorPay Indian payment gateway.';
+	public $description = 'Razorpay Indian payment gateway.';
 
 	/**
 	 * Supported currencies
