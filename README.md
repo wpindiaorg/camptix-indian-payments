@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Camptix Indian Payments
 
 Simple and Flexible payment ticketing for Camptix using Multiple Indian Payment Gateway Solutoin
@@ -41,3 +42,7 @@ For the versions available, see the [Tags Camptix Indian Payments](https://githu
 * Camptix Multiple Indian Gateway Invented on 21 July 2017, As there was multiple gateway request come for community to activate INR currency gateway details commmunication 
 [CampTix payment gateways for Indian currency](https://make.wordpress.org/community/2017/07/17/camptix-payment-gateways-for-indian-currency/ "CampTix payment gateways for Indian currency")
 
+=======
+# camptix-indian-payments
+Multiple payment Indian Payment Gateways for Camptix. Single plugin to support multiple payment-gateways, primarily built for WordCamps in India.
+>>>>>>> origin/master
