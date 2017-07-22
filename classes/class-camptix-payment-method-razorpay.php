@@ -6,7 +6,6 @@
  *
  * @category       Class
  * @package        Camptix Razorpay
- * @author         Sanyog Shelar (codexdemon)
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -98,10 +97,6 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		wp_enqueue_script( 'camptix-multi-popup-js' );
 
 	}
-
-
-
-
 
 
 	/**
