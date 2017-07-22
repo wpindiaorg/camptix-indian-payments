@@ -95,7 +95,6 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		}
 		wp_register_script( 'camptix-multi-popup-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
 		wp_enqueue_script( 'camptix-multi-popup-js' );
-
 	}
 
 
