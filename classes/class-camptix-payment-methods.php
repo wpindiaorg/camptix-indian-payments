@@ -64,6 +64,7 @@ class Camptix_Indian_Payment_Methods {
 		add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
 		add_filter( 'camptix_form_edit_attendee_additional_info', array( $this, 'add_fields_edit_attendee_info', ), 10, 1 );
 		add_filter( 'camptix_form_edit_attendee_update_post_meta', array( $this, 'save_edited_attendee_info' ), 10, 2 );
+		add_filter( 'camptix_form_edit_attendee_custom_error_flags', array( $this, 'edit_attendee_info_Form_error', ), 10, 1 );
 		add_filter( 'camptix_attendee_report_extra_columns', array( $this, 'export_attendee_data_column' ), 10, 1 );
 		add_filter( 'camptix_attendee_report_column_value', array( $this, 'export_attendee_data_value' ), 10, 3 );
 	}
@@ -183,6 +184,30 @@ class Camptix_Indian_Payment_Methods {
 		</tr>
 		<?php
 		echo ob_get_clean();
+	}
+
+
+	/**
+	 * Set custom error for edit attendee information form
+	 *
+	 * @since 1.0
+	 * access public
+	 *
+	 * @param $attendee
+	 *
+	 * @return array
+	 */
+	public function edit_attendee_info_Form_error( $attendee ) {
+		/* @var  CampTix_Plugin $camptix */
+		global $camptix;
+
+		// Phone.
+		if ( isset( $_POST['tix_attendee_save'] ) ) {
+			if ( empty( $_POST['tix_ticket_info']['phone'] ) ) {
+				// $camptix->error( __( 'Please fill in all required fields.', 'camptix-indian-payments' ) );
+				$_POST['tix_ticket_info']['phone'] = get_post_meta( $attendee->ID, 'tix_phone', true );
+			}
+		}
 	}
 
 
