@@ -58,6 +58,7 @@ class Camptix_Indian_Payments {
 	 */
 	public function setup() {
 		$this->setup_contants();
+		$this->load_files();
 		$this->setup_hooks();
 	}
 
@@ -87,6 +88,16 @@ class Camptix_Indian_Payments {
 		// Definitions
 		define( 'CAMPTIX_MULTI_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CAMPTIX_MULTI_URL', plugin_dir_url( __FILE__ ) );
+	}
+
+	/**
+	 * Setup constants
+	 *
+	 * @since  1.0
+	 * @access private
+	 */
+	private function load_files() {
+		require_once CAMPTIX_MULTI_DIR . 'classes/class-camptix-payment-methods.php';
 	}
 
 
