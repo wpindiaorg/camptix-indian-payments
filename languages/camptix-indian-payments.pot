@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CampTix Indian Payments\n"
+"POT-Creation-Date: 2017-07-22 16:07+0530\n"
+"PO-Revision-Date: 2017-07-22 16:16+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: camptix-indian-payment.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: camptix-indian-payment.php:116
+msgid "Indian Rupees"
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:92
+#: classes/class-camptix-payment-methods.php:89
+#: classes/class-camptix-payment-methods.php:156
+#: classes/class-camptix-payment-methods.php:179
+#: classes/class-camptix-payment-methods.php:245
+msgid "Phone Number"
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:110
+msgid "Instamojo Api KEY"
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:111
+msgid "Instamojo Auth Token"
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:115
+msgid "Instamojo Salt"
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:121
+#: classes/class-camptix-payment-method-razorpay.php:254
+msgid "Sandbox Mode"
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:125
+msgid ""
+"The Test Mode is a way to test payments. Any amount debited from your "
+"account should be re-credited within Five (5) working days."
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:177
+#: classes/class-camptix-payment-method-razorpay.php:205
+msgid "Please fill in all required fields."
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:305
+msgid "The selected currency is not supported by this payment method."
+msgstr ""
+
+#: classes/class-camptix-payment-method-instamojo.php:414
+msgid "Invalid Insatmojo Access Key & Token"
+msgstr ""
+
+#: classes/class-camptix-payment-method-razorpay.php:224
+msgid "Razorpay Popup Title"
+msgstr ""
+
+#: classes/class-camptix-payment-method-razorpay.php:230
+msgid "Live Key ID"
+msgstr ""
+
+#: classes/class-camptix-payment-method-razorpay.php:236
+msgid "Live Key Secret"
+msgstr ""
+
+#: classes/class-camptix-payment-method-razorpay.php:242
+msgid "Test Key ID"
+msgstr ""
+
+#: classes/class-camptix-payment-method-razorpay.php:248
+msgid "Test Key Secret"
+msgstr ""
+
+#: classes/class-camptix-payment-method-razorpay.php:256
+msgid ""
+"The RazorPay Sandbox is a way to test payments without using real accounts "
+"and transactions. When enabled it will use sandbox merchant details instead "
+"of the ones defined above."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "CampTix Indian Payments"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/wpindiaorg/camptix-indian-payments"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Simple and Flexible payment ticketing for Camptix using Indian Payment "
+"Platforms"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "India WordPress Community"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/wpindiaorg/"
+msgstr ""

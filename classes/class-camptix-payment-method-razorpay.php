@@ -191,7 +191,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			</td>
 			<?php $value = isset( $form_data['tix_attendee_info'][ $current_count ]['phone'] ) ? $form_data['tix_attendee_info'][ $current_count ]['phone'] : ''; ?>
 			<td class="tix-right">
-				<input name="tix_attendee_info[<?php echo esc_attr( $current_count ); ?>][phone]" type="text" class="mobile" value="<?php echo esc_attr( $value ); ?>"/><br><small class="message"></small>
+				<input name="tix_attendee_info[<?php echo esc_attr( $current_count ); ?>][phone]" type="text" class="mobile" value="<?php echo esc_attr( $value ); ?>"/><small class="message"></small>
 			</td>
 		</tr>
 		<?php
@@ -302,7 +302,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 						'image' => apply_filters( 'camptix_razorpay_popup_logo_image', '' ),
 					),
 					'errors'          => array(
-						'phone' => __( 'Please fill in all required fields.', 'camptix-razorpay' ),
+						'phone' => __( 'Please fill in all required fields.', 'camptix-indian-payments' ),
 					),
 				);
 
@@ -321,31 +321,31 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	public function payment_settings_fields() {
 		$this->add_settings_field_helper(
 			'razorpay_popup_title',
-			__( 'Razorpay Popup Title', 'camptix-razorpay' ),
+			__( 'Razorpay Popup Title', 'camptix-indian-payments' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'live_key_id',
-			__( 'Live Key ID', 'camptix-razorpay' ),
+			__( 'Live Key ID', 'camptix-indian-payments' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'live_key_secret',
-			__( 'Live Key Secret', 'camptix-razorpay' ),
+			__( 'Live Key Secret', 'camptix-indian-payments' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'test_key_id',
-			__( 'Test Key ID', 'camptix-razorpay' ),
+			__( 'Test Key ID', 'camptix-indian-payments' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'test_key_secret',
-			__( 'Test Key Secret', 'camptix-razorpay' ),
+			__( 'Test Key Secret', 'camptix-indian-payments' ),
 			array( $this, 'field_text' )
 		);
 
@@ -353,7 +353,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			'sandbox',
 			__( 'Sandbox Mode', 'camptix-razorpay' ),
 			array( $this, 'field_yesno' ),
-			__( 'The RazorPay Sandbox is a way to test payments without using real accounts and transactions. When enabled it will use sandbox merchant details instead of the ones defined above.', 'camptix-razorpay' )
+			__( 'The RazorPay Sandbox is a way to test payments without using real accounts and transactions. When enabled it will use sandbox merchant details instead of the ones defined above.', 'camptix-indian-payments' )
 		);
 	}
 

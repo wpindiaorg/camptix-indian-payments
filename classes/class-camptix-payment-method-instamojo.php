@@ -41,11 +41,8 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 			//add_action( 'camptix_attendee_form_additional_info', array( $this, 'add_phone_field' ), 10, 3 );
 			add_filter( 'camptix_form_register_complete_attendee_object', array( $this, 'add_attendee_info' ), 10, 3 );
-			//add_action( 'camptix_checkout_update_post_meta', array( $this, 'save_attendee_info' ), 10, 2 );
-			//add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
 		}
-				//wp_register_script( 'camptix-multi-popup-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
-				//wp_enqueue_script( 'camptix-multi-popup-js' );
+
 
 
 
@@ -55,19 +52,6 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 	public function is_gateway_enable() {
 		return isset( $this->camptix_options['payment_methods'][ $this->id ] );
 	}
-
-	// public function show_attendee_info( $rows, $attendee ) {
-	// 	if ( $attendee_phone = get_post_meta( $attendee->ID, 'tix_phone', true ) ) {
-	// 		$rows[] = array(
-	// 			__( 'Phone Number', 'camptix-instamojo' ),
-	// 			$attendee_phone,
-	// 		);
-	// 	}
-
-		
-	// 	return $rows;
-		
-	// }
 
 
 	public function add_attendee_info( $attendee, $attendee_info, $current_count ) {
@@ -79,22 +63,17 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 	}
 	
 
-	// public function save_attendee_info( $attendee_id, $attendee ) {
-	// 	if ( property_exists( $attendee, 'phone' ) ) {
-	// 		update_post_meta( $attendee_id, 'tix_phone', $attendee->phone );
-	// 	}
-	// }
 
 	public function add_phone_field( $form_data, $current_count, $tickets_selected_count ) {
 		ob_start();
 		?>
 		<tr class="tix-row-phone">
-			<td class="tix-required tix-left"><?php _e( 'Phone Number', 'camptix-instamojo' ); ?>
+			<td class="tix-required tix-left"><?php _e( 'Phone Number', 'camptix-indian-payments' ); ?>
 				<span class="tix-required-star">*</span>
 			</td>
 			<?php $value = isset( $form_data['tix_attendee_info'][ $current_count ]['phone'] ) ? $form_data['tix_attendee_info'][ $current_count ]['phone'] : ''; ?>
 			<td class="tix-right">
-				<input name="tix_attendee_info[<?php echo esc_attr( $current_count ); ?>][phone]" type="text" class="mobile" value="<?php echo esc_attr( $value ); ?>"/><br><small class="message"></small>
+				<input name="tix_attendee_info[<?php echo esc_attr( $current_count ); ?>][phone]" type="text" class="mobile" value="<?php echo esc_attr( $value ); ?>"/><small class="message"></small>
 			</td>
 		</tr>
 		<?php
@@ -102,22 +81,17 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 	}
 
 
-
-
 	function payment_settings_fields() {
 		
 
 		// code change by me start
-		$this->add_settings_field_helper( 'Instamojo-Api-Key', 'Instamojo Api KEY', array( $this, 'field_text' ) );
-		$this->add_settings_field_helper( 'Instamojo-Auth-Token', 'Instamojo Auth Token', array( $this, 'field_text' ) );
-		$this->add_settings_field_helper( 'Instamojo-salt', 'Instamojo Salt', array( $this, 'field_text' ) );
+		$this->add_settings_field_helper( __('Instamojo-Api-Key', 'camptix-indian-payments'), 'Instamojo Api KEY', array( $this, 'field_text' ) );
+		$this->add_settings_field_helper( __('Instamojo-Auth-Token', 'camptix-indian-payments'), 'Instamojo Auth Token', array( $this, 'field_text' ) );
+		$this->add_settings_field_helper( __('Instamojo-salt', 'camptix-indian-payments'), 'Instamojo Salt', array( $this, 'field_text' ) );
 		
-		//$this->add_settings_field_helper( 'mobile-no', 'Mobile Field Name', array( $this, 'field_text' ) );
-		
-		// code change by me end
 
 		$this->add_settings_field_helper( 'sandbox', __( 'Sandbox Mode', 'camptix' ), array( $this, 'field_yesno' ),
-			__( "The Test Mode is a way to test payments. Any amount debited from your account should be re-credited within Five (5) working days.", 'camptix' )
+			__( "The Test Mode is a way to test payments. Any amount debited from your account should be re-credited within Five (5) working days.", 'camptix-indian-payments' )
 		);
 	}
 
@@ -161,7 +135,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 
 				$data = array(
 					'errors'          => array(
-						'phone' => __( 'Please fill in all required fields.', 'camptix-instamojo' ),
+						'phone' => __( 'Please fill in all required fields.', 'camptix-indian-payments' ),
 					),
 				);
 
@@ -289,7 +263,7 @@ print_r($abcd);
 			return false;
 
 		if ( ! in_array( $this->camptix_options['currency'], $this->supported_currencies ) )
-			die( __( 'The selected currency is not supported by this payment method.', 'camptix' ) );
+			die( __( 'The selected currency is not supported by this payment method.', 'camptix-indian-payments' ) );
 
 		$return_url = add_query_arg( array(
 			'tix_action' => 'payment_return',
