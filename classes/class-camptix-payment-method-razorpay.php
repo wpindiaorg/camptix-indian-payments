@@ -61,7 +61,6 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	public $supported_features = array(
 		'refund-single' => false,
 		'refund-all'    => false,
-		'phone-field'   => true,
 	);
 
 	/**
