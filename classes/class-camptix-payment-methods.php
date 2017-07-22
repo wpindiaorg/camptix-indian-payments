@@ -64,6 +64,8 @@ class Camptix_Indian_Payment_Methods {
 		add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
 		add_filter( 'camptix_form_edit_attendee_additional_info', array( $this, 'add_fields_edit_attendee_info', ), 10, 1 );
 		add_filter( 'camptix_form_edit_attendee_update_post_meta', array( $this, 'save_edited_attendee_info' ), 10, 2 );
+		add_filter( 'camptix_attendee_report_extra_columns', array( $this, 'export_attendee_data_column' ), 10, 1 );
+		add_filter( 'camptix_attendee_report_column_value', array( $this, 'export_attendee_data_value' ), 10, 3 );
 	}
 
 	/**
@@ -200,6 +202,45 @@ class Camptix_Indian_Payment_Methods {
 		if ( array_key_exists( 'phone', $new_ticket_info ) ) {
 			update_post_meta( $attendee->ID, 'tix_phone', sanitize_text_field( $new_ticket_info['phone'] ) );
 		}
+	}
+
+
+	/**
+	 * Add column to export extra attendee information
+	 *
+	 * @since 1.0
+	 * access public
+	 *
+	 * @param array $extra_columns
+	 *
+	 * @return array
+	 */
+	public function export_attendee_data_column( $extra_columns ) {
+		return array(
+			'phone' => __( 'Phone Number', 'camptix-indian-payments' ),
+		);
+	}
+
+	/**
+	 * Add column to export extra attendee information
+	 *
+	 * @since 1.0
+	 * access public
+	 *
+	 * @param $value
+	 * @param $column_name
+	 * @param $attendee
+	 *
+	 * @return mixed
+	 */
+	public function export_attendee_data_value( $value, $column_name, $attendee ) {
+		switch ( $column_name ) {
+			case 'phone':
+				$value = get_post_meta( $attendee->ID, 'tix_phone', true );
+				break;
+		}
+
+		return $value;
 	}
 }
 
