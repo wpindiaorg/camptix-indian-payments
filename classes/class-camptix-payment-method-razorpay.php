@@ -384,11 +384,6 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			return;
 		}
 
-		// Add receipt id to attendees.
-		// foreach ( $attendees as $attendee ) {
-		// 	update_post_meta( $attendee->ID, 'tix_receipt_id', $receipt_id );
-		// }
-
 		// Reset attendees.
 		$attendee = reset( $attendees );
 

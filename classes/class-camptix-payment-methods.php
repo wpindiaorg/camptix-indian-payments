@@ -152,14 +152,6 @@ class Camptix_Indian_Payment_Methods {
 			);
 		}
 
-		// Receipt ID.
-		if ( $receipt_id = get_post_meta( $attendee->ID, 'tix_receipt_id', true ) ) {
-			$rows[] = array(
-				__( 'Razorpay Receipt ID', 'camptix-indian-payments' ),
-				$receipt_id,
-			);
-		}
-
 		return $rows;
 	}
 }
