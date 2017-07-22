@@ -22,7 +22,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Payment gateway id.
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var string
 	 */
 	public $id = 'camptix_razorpay';
@@ -30,7 +30,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Payment gateway label
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var string
 	 */
 	public $name = 'Razorpay';
@@ -38,7 +38,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Payment gateway description
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var string
 	 */
 	public $description = 'Razorpay Indian payment gateway.';
@@ -46,7 +46,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Supported currencies
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var array
 	 */
 	public $supported_currencies = array( 'INR' );
@@ -55,7 +55,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Supported features
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var array
 	 */
 	public $supported_features = array(
@@ -72,7 +72,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * This is to Initiate te CampTix options
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	public function camptix_init() {
 		$this->options = wp_parse_args(
@@ -140,7 +140,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Get mechant credentials
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 * @return array
 	 */
@@ -163,7 +163,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Process payment gateway actions.
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 */
 	function template_redirect() {
@@ -213,7 +213,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Add settings.
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 */
 	public function payment_settings_fields() {
@@ -258,7 +258,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Validate options
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 *
 	 * @param array $input
@@ -303,7 +303,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * CampTix Payment CheckOut : Generate & Submit the payment form.
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 *
 	 * @param string $payment_token
