@@ -89,7 +89,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		ob_start();
 		?>
 		<tr class="tix-row-phone">
-			<td class="tix-required tix-left"><?php _e( 'Phone Number', 'camptix-instamojo' ); ?>
+			<td class="tix-required tix-left"><?php _e( 'Phone Number', 'camptix-indian-payments' ); ?>
 				<span class="tix-required-star">*</span>
 			</td>
 			<?php $value = isset( $form_data['tix_attendee_info'][ $current_count ]['phone'] ) ? $form_data['tix_attendee_info'][ $current_count ]['phone'] : ''; ?>
@@ -116,8 +116,8 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		
 		// code change by me end
 
-		$this->add_settings_field_helper( 'sandbox', __( 'Sandbox Mode', 'camptix' ), array( $this, 'field_yesno' ),
-			__( "The Test Mode is a way to test payments. Any amount debited from your account should be re-credited within Five (5) working days.", 'camptix' )
+		$this->add_settings_field_helper( 'sandbox', __( 'Sandbox Mode', 'camptix-indian-payments' ), array( $this, 'field_yesno' ),
+			__( "The Test Mode is a way to test payments. Any amount debited from your account should be re-credited within Five (5) working days.", 'camptix-indian-payments' )
 		);
 	}
 
@@ -161,7 +161,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 
 				$data = array(
 					'errors'          => array(
-						'phone' => __( 'Please fill in all required fields.', 'camptix-instamojo' ),
+						'phone' => __( 'Please fill in all required fields.', 'camptix-indian-payments' ),
 					),
 				);
 
@@ -289,7 +289,7 @@ print_r($abcd);
 			return false;
 
 		if ( ! in_array( $this->camptix_options['currency'], $this->supported_currencies ) )
-			die( __( 'The selected currency is not supported by this payment method.', 'camptix' ) );
+			die( __( 'The selected currency is not supported by this payment method.', 'camptix-indian-payments' ) );
 
 		$return_url = add_query_arg( array(
 			'tix_action' => 'payment_return',

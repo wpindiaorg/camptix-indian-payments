@@ -102,7 +102,7 @@ class Camptix_Indian_Payments {
 	 */
 	public function add_inr_currency( $currencies ) {
 		$currencies['INR'] = array(
-			'label'  => __( 'Indian Rupees', 'camptix' ),
+			'label'  => __( 'Indian Rupees', 'camptix-indian-payments' ),
 			'format' => '₹ %s',
 		);
 
