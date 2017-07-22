@@ -4,9 +4,8 @@
  *
  * This class handles all Instamojo integration for CampTix
  *
- * @category	Class
- * @package		Camptix Razorpay
- * @author 		Sanyog Shelar (codexdemon)
+ * @category       Class
+ * @package        Camptix Razorpay
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,9 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // End if().
 
 
-
 // Load Razorpay sdk.
 require_once CAMPTIX_MULTI_DIR . 'classes/lib/razorpay-php/Razorpay.php';
+
 use Razorpay\Api\Api;
 
 class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
@@ -62,6 +61,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	public $supported_features = array(
 		'refund-single' => false,
 		'refund-all'    => false,
+		'phone-field'   => true,
 	);
 
 	/**
@@ -91,111 +91,10 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		// Apply hooks only when payment gateway enable.
 		if ( $this->is_gateway_enable() ) {
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
-			add_action( 'camptix_attendee_form_additional_info', array( $this, 'add_phone_field' ), 10, 3 );
 			add_filter( 'camptix_register_order_summary_header', array( $this, 'add_order_id_field' ), 10, 3 );
-			add_filter( 'camptix_form_register_complete_attendee_object', array( $this, 'add_attendee_info' ), 10, 3 );
-			add_action( 'camptix_checkout_update_post_meta', array( $this, 'save_attendee_info' ), 10, 2 );
-			add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
 		}
-			wp_register_script( 'camptix-multi-popup-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
-				wp_enqueue_script( 'camptix-multi-popup-js' );
-
-	}
-
-
-	/**
-	 * Show extra attendee information
-	 *
-	 * @since 0.1
-	 * access public
-	 *
-	 * @param $rows
-	 * @param $attendee
-	 *
-	 * @return array
-	 */
-	public function show_attendee_info( $rows, $attendee ) {
-		if ( $attendee_phone = get_post_meta( $attendee->ID, 'tix_phone', true ) ) {
-			$rows[] = array(
-				__( 'Phone Number', 'camptix-razorpay' ),
-				$attendee_phone,
-			);
-		}
-
-		if ( $receipt_id = get_post_meta( $attendee->ID, 'tix_receipt_id', true ) ) {
-			$rows[] = array(
-				__( 'Razorpay Receipt ID', 'camptix-razorpay-' ),
-				$receipt_id,
-			);
-		}
-
-		return $rows;
-	}
-
-
-	/**
-	 * Add extra attendee information
-	 *
-	 * @since  0.1
-	 * @access public
-	 *
-	 * @param $attendee
-	 * @param $attendee_info
-	 * @param $current_count
-	 *
-	 * @return mixed
-	 */
-	public function add_attendee_info( $attendee, $attendee_info, $current_count ) {
-		if ( ! empty( $_POST['tix_attendee_info'][ $current_count ]['phone'] ) ) {
-			$attendee->phone = trim( $_POST['tix_attendee_info'][ $current_count ]['phone'] );
-		}
-
-		return $attendee;
-	}
-
-
-	/**
-	 * Save extra attendee information
-	 *
-	 * @since  0.1
-	 * @access public
-	 *
-	 * @param $attendee_id
-	 * @param $attendee
-	 */
-	public function save_attendee_info( $attendee_id, $attendee ) {
-		if ( property_exists( $attendee, 'phone' ) ) {
-			update_post_meta( $attendee_id, 'tix_phone', $attendee->phone );
-		}
-	}
-
-
-	/**
-	 * Add phone field
-	 *
-	 * @since  0.1
-	 * @access public
-	 *
-	 * @param $form_data
-	 * @param $current_count
-	 * @param $tickets_selected_count
-	 *
-	 * @return string
-	 */
-	public function add_phone_field( $form_data, $current_count, $tickets_selected_count ) {
-		ob_start();
-		?>
-		<tr class="tix-row-phone">
-			<td class="tix-required tix-left"><?php _e( 'Phone Number', 'camptix-razorpay' ); ?>
-				<span class="tix-required-star">*</span>
-			</td>
-			<?php $value = isset( $form_data['tix_attendee_info'][ $current_count ]['phone'] ) ? $form_data['tix_attendee_info'][ $current_count ]['phone'] : ''; ?>
-			<td class="tix-right">
-				<input name="tix_attendee_info[<?php echo esc_attr( $current_count ); ?>][phone]" type="text" class="mobile" value="<?php echo esc_attr( $value ); ?>"/><small class="message"></small>
-			</td>
-		</tr>
-		<?php
-		echo ob_get_clean();
+		wp_register_script( 'camptix-multi-popup-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
+		wp_enqueue_script( 'camptix-multi-popup-js' );
 	}
 
 
@@ -207,12 +106,12 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	public function add_order_id_field( $form_heading ) {
 		// $api         = $this->get_razjorpay_api();
 		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', $_POST['tix_tickets_selected'] ) : array();
-		if(isset($_POST['tix_coupon'])){
-		$coupon_id   = sanitize_text_field($_POST['tix_coupon']);
-		}else{
-		    $coupon_id = '';
+		if ( isset( $_POST['tix_coupon'] ) ) {
+			$coupon_id = sanitize_text_field( $_POST['tix_coupon'] );
+		} else {
+			$coupon_id = '';
 		}
-		
+
 
 		// Order info.
 		$order      = $this->razorpay_order_info( $tickets_info, $coupon_id );
@@ -289,7 +188,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 
 				wp_register_script( 'razorpay-js', 'https://checkout.razorpay.com/v1/checkout-new.js' );
 				wp_enqueue_script( 'razorpay-js' );
-			
+
 				$merchant = $this->get_merchant_credentials();
 
 				$data = array(
@@ -310,7 +209,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			}
 		}// End if().
 
-	}   
+	}
 
 	/**
 	 * Add settings.
@@ -351,7 +250,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 
 		$this->add_settings_field_helper(
 			'sandbox',
-			__( 'Sandbox Mode', 'camptix-razorpay' ),
+			__( 'Sandbox Mode', 'camptix-indian-payments' ),
 			array( $this, 'field_yesno' ),
 			__( 'The RazorPay Sandbox is a way to test payments without using real accounts and transactions. When enabled it will use sandbox merchant details instead of the ones defined above.', 'camptix-indian-payments' )
 		);
@@ -483,11 +382,6 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		if ( empty( $attendees ) ) {
 			return;
 		}
-
-		// Add receipt id to attendees.
-		// foreach ( $attendees as $attendee ) {
-		// 	update_post_meta( $attendee->ID, 'tix_receipt_id', $receipt_id );
-		// }
 
 		// Reset attendees.
 		$attendee = reset( $attendees );
