@@ -100,7 +100,7 @@ class Camptix_Indian_Payments {
 	 * @access private
 	 */
 	private function load_files() {
-		require_once CAMPTIX_MULTI_DIR . 'classes/class-camptix-payment-methods.php';
+		require_once CAMPTIX_MULTI_DIR . 'inc/class-camptix-payment-methods.php';
 	}
 
 
@@ -134,11 +134,11 @@ class Camptix_Indian_Payments {
 		$payment_gateways = array(
 			array(
 				'class'     => 'CampTix_Payment_Method_Instamojo',
-				'file_path' => plugin_dir_path( __FILE__ ) . 'classes/class-camptix-payment-method-instamojo.php',
+				'file_path' => plugin_dir_path( __FILE__ ) . 'inc/instamojo/class-camptix-payment-method-instamojo.php',
 			),
 			array(
 				'class'     => 'CampTix_Payment_Method_RazorPay',
-				'file_path' => plugin_dir_path( __FILE__ ) . 'classes/class-camptix-payment-method-razorpay.php',
+				'file_path' => plugin_dir_path( __FILE__ ) . 'inc/razorpay/class-camptix-payment-method-razorpay.php',
 			),
 		);
 

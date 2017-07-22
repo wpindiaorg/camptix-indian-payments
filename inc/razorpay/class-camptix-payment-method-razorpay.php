@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 // Load Razorpay sdk.
-require_once CAMPTIX_MULTI_DIR . 'classes/lib/razorpay-php/Razorpay.php';
+require_once CAMPTIX_MULTI_DIR . 'inc/razorpay/lib/razorpay-php/Razorpay.php';
 
 use Razorpay\Api\Api;
 
