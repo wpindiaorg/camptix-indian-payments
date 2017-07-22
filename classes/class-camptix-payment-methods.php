@@ -62,6 +62,8 @@ class Camptix_Indian_Payment_Methods {
 		add_filter( 'camptix_form_register_complete_attendee_object', array( $this, 'add_attendee_info' ), 10, 3 );
 		add_action( 'camptix_checkout_update_post_meta', array( $this, 'save_attendee_info' ), 10, 2 );
 		add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
+		add_filter( 'camptix_form_edit_attendee_additional_info', array( $this, 'add_fields_edit_attendee_info', ), 10, 1 );
+		add_filter( 'camptix_form_edit_attendee_update_post_meta', array( $this, 'save_edited_attendee_info' ), 10, 2 );
 	}
 
 	/**
@@ -80,7 +82,8 @@ class Camptix_Indian_Payment_Methods {
 		ob_start();
 		?>
 		<tr class="tix-row-phone">
-			<td class="tix-required tix-left"><?php _e( 'Phone Number', 'camptix-indian-payments' ); ?>
+			<td class="tix-required tix-left">
+				<?php _e( 'Phone Number', 'camptix-indian-payments' ); ?>
 				<span class="tix-required-star">*</span>
 			</td>
 			<?php $value = isset( $form_data['tix_attendee_info'][ $current_count ]['phone'] ) ? $form_data['tix_attendee_info'][ $current_count ]['phone'] : ''; ?>
@@ -153,6 +156,50 @@ class Camptix_Indian_Payment_Methods {
 		}
 
 		return $rows;
+	}
+
+	/**
+	 * Show extra attendee information
+	 *
+	 * @since 1.0
+	 * access public
+	 *
+	 * @param $attendee
+	 *
+	 * @return array
+	 */
+	public function add_fields_edit_attendee_info( $attendee ) {
+		ob_start();
+		?>
+		<tr>
+			<td class="tix-required tix-left">
+				<?php _e( 'Phone Number', 'camptix-indian-payments' ); ?>
+				<span class="tix-required-star">*</span></td>
+			<td class="tix-right">
+				<input name="tix_ticket_info[phone]" type="text" value="<?php echo esc_attr( get_post_meta( $attendee->ID, 'tix_phone', true ) ); ?>"/>
+			</td>
+		</tr>
+		<?php
+		echo ob_get_clean();
+	}
+
+
+	/**
+	 * Save edited attendee information
+	 *
+	 * @since 1.0
+	 * access public
+	 *
+	 * @param $new_ticket_info
+	 * @param $attendee
+	 *
+	 * @return array
+	 */
+	public function save_edited_attendee_info( $new_ticket_info, $attendee ) {
+		// Phone.
+		if ( array_key_exists( 'phone', $new_ticket_info ) ) {
+			update_post_meta( $attendee->ID, 'tix_phone', sanitize_text_field( $new_ticket_info['phone'] ) );
+		}
 	}
 }
 
