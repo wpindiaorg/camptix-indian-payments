@@ -90,10 +90,55 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		// Apply hooks only when payment gateway enable.
 		if ( $this->is_gateway_enable() ) {
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 			add_filter( 'camptix_register_order_summary_header', array( $this, 'add_order_id_field' ), 10, 3 );
+			add_filter( 'camptix_indian_payments_localize_vars', array( $this, 'add_localize_vars' ), 10, 1 );
 		}
-		wp_register_script( 'camptix-multi-popup-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
-		wp_enqueue_script( 'camptix-multi-popup-js' );
+	}
+
+
+	/**
+	 * Load scripts and style
+	 *
+	 * @since  1.0
+	 * @access public
+	 */
+	public function enqueue() {
+		wp_register_script( 'razorpay-js', 'https://checkout.razorpay.com/v1/checkout-new.js' );
+		wp_enqueue_script( 'razorpay-js' );
+	}
+
+	/**
+	 * Add localize params
+	 *
+	 *
+	 * @since  1.0
+	 * @access public
+	 *
+	 * @param array $localize
+	 *
+	 * @return array
+	 */
+	public function add_localize_vars( $localize ) {
+		// Bailout.
+		if ( 'attendee_info' !== $_GET['tix_action'] ) {
+			return $localize;
+		}
+
+		$merchant = $this->get_merchant_credentials();
+
+		$data = array(
+			'merchant_key_id' => $merchant['key_id'],
+			'gateway_id'      => $this->id,
+			'popup'           => array(
+				'color' => apply_filters( 'camptix_razorpay_popup_color', '' ),
+
+				// Ideal logo size: https://i.imgur.com/n5tjHFD.png
+				'image' => apply_filters( 'camptix_razorpay_popup_logo_image', '' ),
+			),
+		);
+
+		return array_merge( $localize, $data );
 	}
 
 
@@ -177,37 +222,8 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 				if ( 'payment_return' == $_GET['tix_action'] ) {
 					$this->payment_return();
 				}
-
-				if ( 'payment_notify' == $_GET['tix_action'] ) {
-					// $this->payment_notify();
-				}
-			}
-
-			if ( 'attendee_info' == $_GET['tix_action'] ) {
-
-				wp_register_script( 'razorpay-js', 'https://checkout.razorpay.com/v1/checkout-new.js' );
-				wp_enqueue_script( 'razorpay-js' );
-
-				$merchant = $this->get_merchant_credentials();
-
-				$data = array(
-					'merchant_key_id' => $merchant['key_id'],
-					'gateway_id'      => $this->id,
-					'popup'           => array(
-						'color' => apply_filters( 'camptix_razorpay_popup_color', '' ),
-
-						// Ideal logo size: https://i.imgur.com/n5tjHFD.png
-						'image' => apply_filters( 'camptix_razorpay_popup_logo_image', '' ),
-					),
-					'errors'          => array(
-						'phone' => __( 'Please fill in all required fields.', 'camptix-indian-payments' ),
-					),
-				);
-
-				wp_localize_script( 'camptix-multi-popup-js', 'camptix_inr_vars', $data );
 			}
 		}// End if().
-
 	}
 
 	/**

@@ -75,6 +75,9 @@ class Camptix_Indian_Payments {
 
 		// Load the Instamojo Payment Method
 		add_action( 'camptix_load_addons', array( $this, 'load_payment_methods' ) );
+
+		// Load scripts ans styles.
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
 
@@ -147,6 +150,29 @@ class Camptix_Indian_Payments {
 
 			camptix_register_addon( $gateway['class'] );
 		}
+	}
+
+
+	/**
+	 * Load scripts and styles
+	 *
+	 * @since  1.0
+	 * @access public
+	 */
+	public function enqueue() {
+		wp_register_script( 'camptix-indian-payments-main-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
+		wp_enqueue_script( 'camptix-indian-payments-main-js' );
+
+		$data = apply_filters(
+			'camptix_indian_payments_localize_vars',
+			array(
+				'errors' => array(
+					'phone' => __( 'Please fill in all required fields.', 'camptix-indian-payments' ),
+				),
+			)
+		);
+
+		wp_localize_script( 'camptix-indian-payments-main-js', 'camptix_inr_vars', $data );
 	}
 }
 

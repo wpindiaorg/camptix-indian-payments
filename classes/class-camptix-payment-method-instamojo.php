@@ -113,21 +113,6 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 				$this->payment_notify();
 			}
 		}
-
-
-		if ( 'attendee_info' == $_GET['tix_action'] ) {
-
-			$merchant = $this->get_merchant_credentials();
-
-			$data = array(
-				'errors' => array(
-					'phone' => __( 'Please fill in all required fields.', 'camptix-indian-payments' ),
-				),
-			);
-
-			wp_localize_script( 'camptix-multi-popup-js', 'camptix_inr_vars', $data );
-		}
-
 	}
 
 	function payment_return() {
