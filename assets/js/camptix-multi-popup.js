@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
 	}).change();
 
 	/**
-	 * Increase razorpay's z-index to appear above Give's modal.
+	 * Increase razorpay's z-index to appear above of all content.
 	 */
 	$('.razorpay-container').css('z-index', '2147483543');
 
