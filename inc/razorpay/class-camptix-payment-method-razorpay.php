@@ -121,7 +121,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 */
 	public function add_localize_vars( $localize ) {
 		// Bailout.
-		if ( 'attendee_info' !== $_GET['tix_action'] ) {
+		if ( ! isset( $_GET['tix_action'] ) || ( 'attendee_info' !== $_GET['tix_action'] ) ) {
 			return $localize;
 		}
 
