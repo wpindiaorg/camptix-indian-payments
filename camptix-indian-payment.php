@@ -7,7 +7,7 @@
  * Author URI: https://github.com/wpindiaorg/
  * Version: 1.0
  * License: GPLv2 or later
- * Text Domain: camptix-indian-payments
+ * Text Domain: campt-indian-payment-gateway
  * Domain Path: /languages
  * GitHub Plugin URI: https://github.com/wpindiaorg/camptix-indian-payments
  */
@@ -116,7 +116,7 @@ class Camptix_Indian_Payments {
 	 */
 	public function add_inr_currency( $currencies ) {
 		$currencies['INR'] = array(
-			'label'  => __( 'Indian Rupees', 'camptix-indian-payments' ),
+			'label'  => __( 'Indian Rupees', 'campt-indian-payment-gateway' ),
 			'format' => '₹ %s',
 		);
 
@@ -167,7 +167,7 @@ class Camptix_Indian_Payments {
 			'camptix_indian_payments_localize_vars',
 			array(
 				'errors' => array(
-					'phone' => __( 'Please fill in all required fields.', 'camptix-indian-payments' ),
+					'phone' => __( 'Please fill in all required fields.', 'campt-indian-payment-gateway' ),
 				),
 			)
 		);

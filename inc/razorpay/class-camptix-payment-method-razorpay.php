@@ -235,39 +235,39 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	public function payment_settings_fields() {
 		$this->add_settings_field_helper(
 			'razorpay_popup_title',
-			__( 'Razorpay Popup Title', 'camptix-indian-payments' ),
+			__( 'Razorpay Popup Title', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'live_key_id',
-			__( 'Live Key ID', 'camptix-indian-payments' ),
+			__( 'Live Key ID', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'live_key_secret',
-			__( 'Live Key Secret', 'camptix-indian-payments' ),
+			__( 'Live Key Secret', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'test_key_id',
-			__( 'Test Key ID', 'camptix-indian-payments' ),
+			__( 'Test Key ID', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'test_key_secret',
-			__( 'Test Key Secret', 'camptix-indian-payments' ),
+			__( 'Test Key Secret', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'sandbox',
-			__( 'Sandbox Mode', 'camptix-indian-payments' ),
+			__( 'Sandbox Mode', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_yesno' ),
-			__( 'The RazorPay Sandbox is a way to test payments without using real accounts and transactions. When enabled it will use sandbox merchant details instead of the ones defined above.', 'camptix-indian-payments' )
+			__( 'The RazorPay Sandbox is a way to test payments without using real accounts and transactions. When enabled it will use sandbox merchant details instead of the ones defined above.', 'campt-indian-payment-gateway' )
 		);
 	}
 

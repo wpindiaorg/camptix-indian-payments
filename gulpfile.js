@@ -18,7 +18,7 @@ gulp.task('pot', function () {
 		.pipe(sort())
 		.pipe(wpPot({
 			package: 'CampTix-Razorpay',
-			domain: 'camptix-indian-payments', //textdomain
+			domain: 'campt-indian-payment-gateway', //textdomain
 			destFile: 'camptix-indian-payments.pot',
 			bugReport: 'https://github.com/wpindiaorg/camptix-indian-payments/issues/new',
 			lastTranslator: '',
@@ -31,7 +31,7 @@ gulp.task('pot', function () {
  ------------------------------------- */
 gulp.task('textdomain', function () {
 	var options = {
-		text_domain: 'camptix-indian-payments',
+		text_domain: 'campt-indian-payment-gateway',
 		keywords: [
 			'__:1,2d',
 			'_e:1,2d',

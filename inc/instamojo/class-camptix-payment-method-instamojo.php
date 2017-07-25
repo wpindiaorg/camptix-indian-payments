@@ -64,13 +64,13 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 
 	function payment_settings_fields() {
 		// code change by me start
-		$this->add_settings_field_helper( __('Instamojo-Api-Key', 'camptix-indian-payments'), 'Instamojo Api KEY', array( $this, 'field_text' ) );
-		$this->add_settings_field_helper( __('Instamojo-Auth-Token', 'camptix-indian-payments'), 'Instamojo Auth Token', array( $this, 'field_text' ) );
-		$this->add_settings_field_helper( __('Instamojo-salt', 'camptix-indian-payments'), 'Instamojo Salt', array( $this, 'field_text' ) );
+		$this->add_settings_field_helper( __('Instamojo-Api-Key', 'campt-indian-payment-gateway'), 'Instamojo Api KEY', array( $this, 'field_text' ) );
+		$this->add_settings_field_helper( __('Instamojo-Auth-Token', 'campt-indian-payment-gateway'), 'Instamojo Auth Token', array( $this, 'field_text' ) );
+		$this->add_settings_field_helper( __('Instamojo-salt', 'campt-indian-payment-gateway'), 'Instamojo Salt', array( $this, 'field_text' ) );
 		
 
-		$this->add_settings_field_helper( 'sandbox', __( 'Sandbox Mode', 'camptix' ), array( $this, 'field_yesno' ),
-			__( "The Test Mode is a way to test payments. Any amount debited from your account should be re-credited within Five (5) working days.", 'camptix-indian-payments' )
+		$this->add_settings_field_helper( 'sandbox', __( 'Sandbox Mode', 'campt-indian-payment-gateway' ), array( $this, 'field_yesno' ),
+			__( "The Test Mode is a way to test payments. Any amount debited from your account should be re-credited within Five (5) working days.", 'campt-indian-payment-gateway' )
 		);
 	}
 
@@ -234,7 +234,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		}
 
 		if ( ! in_array( $this->camptix_options['currency'], $this->supported_currencies ) )
-			die( __( 'The selected currency is not supported by this payment method.', 'camptix-indian-payments' ) );
+			die( __( 'The selected currency is not supported by this payment method.', 'campt-indian-payment-gateway' ) );
 
 		$return_url = add_query_arg( array(
 			'tix_action'         => 'payment_return',
