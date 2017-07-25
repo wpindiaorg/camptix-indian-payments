@@ -160,6 +160,11 @@ class Camptix_Indian_Payments {
 	 * @access public
 	 */
 	public function enqueue() {
+		// Bailout.
+		if ( ! isset( $_GET['tix_action'] ) || ( 'attendee_info' !== $_GET['tix_action'] ) ) {
+			return;
+		}
+
 		wp_register_script( 'camptix-indian-payments-main-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
 		wp_enqueue_script( 'camptix-indian-payments-main-js' );
 
