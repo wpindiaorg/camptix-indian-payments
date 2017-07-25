@@ -23,10 +23,10 @@ Please read [CONTRIBUTING.md](https://github.com/wpindiaorg/camptix-indian-payme
 
 ## Authors
 
-* **Sanyog Shelar** - *Initial Work INR Currency CampTix* - [SanyogS](https://github.com/SanyogS)
+* **Sanyog Shelar** - *Initial Development Indian Payment Gateway for CampTix* - [codexdemon](https://profiles.wordpress.org/codexdemon)
+* **Ravinder Kumar** - *Initial Development Indian Payment Gateway for CampTix* - [ravinderk](https://profiles.wordpress.org/ravinderk)
 
 See also the list of [Contributors](https://github.com/wpindiaorg/camptix-indian-payments/contributors) who participated in this project.
-
 
 ## Versioning
 
@@ -39,9 +39,8 @@ For the versions available, see the [Tags Camptix Indian Payments](https://githu
 ## Acknowledgments
 
 * Camptix Multiple Indian Gateway Invented on 21 July 2017, As there was multiple gateway request come for community to activate INR currency gateway details commmunication 
-[CampTix payment gateways for Indian currency](https://make.wordpress.org/community/2017/07/17/camptix-payment-gateways-for-indian-currency/ "CampTix payment gateways for Indian currency")
+[Recap: CampTix payment gateways for Indian currency](https://make.wordpress.org/community/2017/07/21/recap-camptix-payment-gateways-for-indian-currency/ "Recap: CampTix payment gateways for Indian currency")
 
 =======
 # camptix-indian-payments
 Multiple payment Indian Payment Gateways for Camptix. Single plugin to support multiple payment-gateways, primarily built for WordCamps in India.
->>>>>>> origin/master

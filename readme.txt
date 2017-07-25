@@ -1,10 +1,9 @@
 === Camptix Indian Payments ===
-Contributors:      codexdemon
+Contributors:      wpindia, codexdemon, ravinderk, vachan
 Tags:              camptix, camptix payment, event ticketing, razorpay, instamojo, Indian payment, camptix Indian gateway, camptix payment gateway
 Requires at least: 3.5
 Tested up to:      4.8
 Stable tag:        1.0
-Donate link:       http://www.sanyog.in/donate/
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,14 +28,17 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 
 == Frequently Asked Questions ==
 
-= How to Sign Up Instamojo? =
-Please free signup at https://www.instamojo.com and complete registration profile to get account activated
+= How to Sign Up? =
+*Instamojo*: Signup at [Instamojo.com](https://www.instamojo.com/accounts/register/) and complete registration profile to get account activated.
+*Razorpay*: Signup at [Razorpay.com](https://dashboard.razorpay.com/#/access/signup) and complete registration profile to get account activated.
 
-= Is there any documentation available for instamojo =
-Yes please visit for documentation of Instamojo https://docs.instamojo.com/v2/
+= Is there any documentation available? =
+*Instamojo*: Documentation avalible [here](https://docs.instamojo.com/v2/)
+*Razorpay*: Documentation avalible [here](https://docs.razorpay.com/)
 
 = How to get Access Token and API Key? =
-Please check Youtube Video How to get Access Token and API Key https://www.youtube.com/watch?v=9j5RThz3FD0
+*Instamojo*: Login > [API &amp; Plugins](https://www.instamojo.com/integrations) | Also Check [Youtube Video](https://www.youtube.com/watch?v=9j5RThz3FD0).
+*Razorpay*: Dashboard > Test/Live Mode > Settings > [API Keys](https://dashboard.razorpay.com/#/app/keys).
 
 == Screenshots ==
 
