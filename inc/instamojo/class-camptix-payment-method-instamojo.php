@@ -23,6 +23,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 	 * We can have an array to store our options.
 	 * Use $this->get_payment_options() to retrieve them.
 	 */
+	
 	protected $options = array();
 
 	function camptix_init() {
@@ -58,8 +59,6 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 
 		return $attendee;
 	}
-
-
 
 
 	function payment_settings_fields() {
@@ -168,7 +167,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 	}
 
 	/**
-	 * Runs when PayU Money sends an ITN signal.
+	 * Runs when Instamjo Money sends an ITN signal.
 	 * Verify the payload and use $this->payment_result
 	 * to signal a transaction result back to CampTix.
 	 */
@@ -185,7 +184,6 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		/*
 		Basic PHP script to handle Instamojo RAP webhook.
 		*/
-
 
 		$instamojo_key   = $this->options['Instamojo-Api-Key'];
 		$instamojo_token = $this->options['Instamojo-Auth-Token'];
@@ -216,15 +214,12 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			} else {
 				// Payment was unsuccessful, mark it as failed in your database.
 				// You can acess payment_request_id, purpose etc here.
-				$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_CANCELLED );
+				$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_FAILED );
 			}
 		} else {
 			$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_PENDING );
 		}
-
-		print_r( $abcd );
-		die;
-
+		
 	}
 
 	public function payment_checkout( $payment_token ) {
@@ -300,21 +295,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 
 		);
 
-
-		$ch = curl_init();
-
 		$url = $this->options['sandbox'] ? 'https://test.instamojo.com/api/1.1/payment-requests/' : 'https://www.instamojo.com/api/1.1/payment-requests/';
-
-		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_HEADER, false );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER,
-			array(
-				"X-Api-Key:$instamojo_key",
-				"X-Auth-Token:$instamojo_token",
-			) );
-
 
 		$payload = Array(
 			'purpose'                 => $productinfo,
@@ -330,17 +311,31 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		);
 
 
-		curl_setopt( $ch, CURLOPT_POST, true );
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $payload ) );
-		$response = curl_exec( $ch );
-		curl_close( $ch );
+		$params = array(
+			'method' => 'POST',
+			'sslverify' => true,
+			'timeout'   => 60,
+			'headers'   => array(
 
-		$json_decode = json_decode( $response, true );
+				'Accept'       => 'application/json',
+				'Content-Type' => 'application/json;charset=UTF-8',
+				'X-Api-Key'  =>  $instamojo_key,
+				'X-Auth-Token' => $instamojo_token
+			),
+			'body' => json_encode($payload)
 
-		if ( $json_decode['success'] ) {
-			$long_url = $json_decode['payment_request']['longurl'];
+		);
+
+
+		// GET a response.
+		$response = wp_remote_post( $url, $params );
+		
+		// Check to see if the request was valid.
+		if ( ! is_wp_error( $response )  ) {
+
+			$json_decode = json_decode( $response['body']);
+			$long_url = $json_decode->payment_request->longurl;
 			header( 'Location:' . $long_url );
-
 		}
 		echo 'Invalid Insatmojo Access Key & Token';
 

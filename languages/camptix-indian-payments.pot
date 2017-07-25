@@ -1,8 +1,8 @@
-# Copyright (C) 2017 CampTix-Razorpay
-# This file is distributed under the same license as the CampTix-Razorpay package.
+# Copyright (C) 2017 CampTix Indian Payments
+# This file is distributed under the same license as the CampTix Indian Payments package.
 msgid ""
 msgstr ""
-"Project-Id-Version: CampTix-Razorpay\n"
+"Project-Id-Version: CampTix-Indian-Payments\n"
 "Report-Msgid-Bugs-To: https://github.com/wpindiaorg/camptix-indian-payments/issues/new\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

@@ -21,8 +21,12 @@ License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 ## Contributing
 Please read [CONTRIBUTING.md](https://github.com/wpindiaorg/camptix-indian-payments/) for details on our code of conduct, and the process for submitting pull requests to us.
 
-See also the list of [Contributors](https://github.com/wpindiaorg/camptix-indian-payments/contributors) who participated in this project.
+## Authors
 
+* **Sanyog Shelar** - *Initial Development Indian Payment Gateway for CampTix* - [codexdemon](https://profiles.wordpress.org/codexdemon)
+* **Ravinder Kumar** - *Initial Development Indian Payment Gateway for CampTix* - [ravinderk](https://profiles.wordpress.org/ravinderk)
+
+See also the list of [Contributors](https://github.com/wpindiaorg/camptix-indian-payments/contributors) who participated in this project.
 
 ## Versioning
 
