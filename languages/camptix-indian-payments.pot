@@ -16,62 +16,62 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: camptix-indian-payment.php:116
+#: camptix-indian-payment.php:119
 msgid "Indian Rupees"
 msgstr ""
 
-#: classes/class-camptix-payment-method-instamojo.php:185, classes/class-camptix-payment-methods.php:89, classes/class-camptix-payment-methods.php:156, classes/class-camptix-payment-methods.php:179, classes/class-camptix-payment-methods.php:245
-msgid "Phone Number"
-msgstr ""
-
-#: classes/class-camptix-payment-method-instamojo.php:253, classes/class-camptix-payment-method-razorpay.php:505
-msgid "Sandbox Mode"
-msgstr ""
-
-#: classes/class-camptix-payment-method-instamojo.php:263
-msgid "Instamojo-Api-Key"
-msgstr ""
-
-#: classes/class-camptix-payment-method-instamojo.php:265
-msgid "Instamojo-Auth-Token"
-msgstr ""
-
-#: classes/class-camptix-payment-method-instamojo.php:267
-msgid "Instamojo-salt"
-msgstr ""
-
-#: classes/class-camptix-payment-method-instamojo.php:277
-msgid "The Test Mode is a way to test payments. Any amount debited from your account should be re-credited within Five (5) working days."
-msgstr ""
-
-#: classes/class-camptix-payment-method-instamojo.php:383, classes/class-camptix-payment-method-instamojo.php:397, classes/class-camptix-payment-method-razorpay.php:407, classes/class-camptix-payment-methods.php:207
+#: camptix-indian-payment.php:170
 msgid "Please fill in all required fields."
 msgstr ""
 
-#: classes/class-camptix-payment-method-instamojo.php:655, classes/class-camptix-payment-method-instamojo.php:663
+#: inc/class-camptix-payment-methods.php:89, inc/class-camptix-payment-methods.php:156, inc/class-camptix-payment-methods.php:179, inc/class-camptix-payment-methods.php:245
+msgid "Phone Number"
+msgstr ""
+
+#: inc/instamojo/class-camptix-payment-method-instamojo.php:133
+msgid "Instamojo-Api-Key"
+msgstr ""
+
+#: inc/instamojo/class-camptix-payment-method-instamojo.php:135
+msgid "Instamojo-Auth-Token"
+msgstr ""
+
+#: inc/instamojo/class-camptix-payment-method-instamojo.php:137
+msgid "Instamojo-salt"
+msgstr ""
+
+#: inc/instamojo/class-camptix-payment-method-instamojo.php:143, inc/razorpay/class-camptix-payment-method-razorpay.php:535
+msgid "Sandbox Mode"
+msgstr ""
+
+#: inc/instamojo/class-camptix-payment-method-instamojo.php:145
+msgid "The Test Mode is a way to test payments. Any amount debited from your account should be re-credited within Five (5) working days."
+msgstr ""
+
+#: inc/instamojo/class-camptix-payment-method-instamojo.php:473
 msgid "The selected currency is not supported by this payment method."
 msgstr ""
 
-#: classes/class-camptix-payment-method-razorpay.php:445
+#: inc/razorpay/class-camptix-payment-method-razorpay.php:475
 msgid "Razorpay Popup Title"
 msgstr ""
 
-#: classes/class-camptix-payment-method-razorpay.php:457
+#: inc/razorpay/class-camptix-payment-method-razorpay.php:487
 msgid "Live Key ID"
 msgstr ""
 
-#: classes/class-camptix-payment-method-razorpay.php:469
+#: inc/razorpay/class-camptix-payment-method-razorpay.php:499
 msgid "Live Key Secret"
 msgstr ""
 
-#: classes/class-camptix-payment-method-razorpay.php:481
+#: inc/razorpay/class-camptix-payment-method-razorpay.php:511
 msgid "Test Key ID"
 msgstr ""
 
-#: classes/class-camptix-payment-method-razorpay.php:493
+#: inc/razorpay/class-camptix-payment-method-razorpay.php:523
 msgid "Test Key Secret"
 msgstr ""
 
-#: classes/class-camptix-payment-method-razorpay.php:509
+#: inc/razorpay/class-camptix-payment-method-razorpay.php:539
 msgid "The RazorPay Sandbox is a way to test payments without using real accounts and transactions. When enabled it will use sandbox merchant details instead of the ones defined above."
 msgstr ""
