@@ -89,6 +89,7 @@ class Camptix_Indian_Payments {
 	 */
 	private function setup_contants() {
 		// Definitions
+		define( 'CAMPTIX_INDIAN_PAYMENTS_VERSION', '1.0' );
 		define( 'CAMPTIX_MULTI_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CAMPTIX_MULTI_URL', plugin_dir_url( __FILE__ ) );
 	}
