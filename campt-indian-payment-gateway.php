@@ -194,7 +194,7 @@ function cip_init() {
 }
 
 // Check if PHP current version is greater then 5.3.
-if ( version_compare( phpversion(), '7.3', '>=' ) ) {
+if ( version_compare( phpversion(), '5.3', '>=' ) ) {
 	add_action( 'plugins_loaded', 'cip_init', 9999 );
 } else {
 	if ( defined( 'WP_CLI' ) ) {
