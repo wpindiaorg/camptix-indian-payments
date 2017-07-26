@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
 	}).change();
 
 	/**
-	 * Increase razorpay's z-index to appear above Give's modal.
+	 * Increase razorpay's z-index to appear above of all content.
 	 */
 	$('.razorpay-container').css('z-index', '2147483543');
 
@@ -108,11 +108,11 @@ jQuery(document).ready(function ($) {
 
 
         }else
-        if (phone.length != 10 )
+        if (phone.length > 10 )
         {
         	console.log('test');
             //alert('Phone number must be 10 digits.');
-            $('.message').text('Please Enter 10 Digit Number');
+            $('.message').text('Please Enter correct Mobile Number Or Number with STD Code');
             $('.message').css('color','red')
             
             $('.mobile').val('');

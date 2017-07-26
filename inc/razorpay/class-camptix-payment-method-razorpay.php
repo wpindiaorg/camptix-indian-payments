@@ -4,9 +4,8 @@
  *
  * This class handles all Instamojo integration for CampTix
  *
- * @category	Class
- * @package		Camptix Razorpay
- * @author 		Sanyog Shelar (codexdemon)
+ * @category       Class
+ * @package        Camptix Razorpay
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,16 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // End if().
 
 
-
 // Load Razorpay sdk.
-require_once CAMPTIX_MULTI_DIR . 'classes/lib/razorpay-php/Razorpay.php';
+require_once CAMPTIX_MULTI_DIR . 'inc/razorpay/lib/razorpay-php/Razorpay.php';
+
 use Razorpay\Api\Api;
 
 class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Payment gateway id.
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var string
 	 */
 	public $id = 'camptix_razorpay';
@@ -31,7 +30,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Payment gateway label
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var string
 	 */
 	public $name = 'Razorpay';
@@ -39,7 +38,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Payment gateway description
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var string
 	 */
 	public $description = 'Razorpay Indian payment gateway.';
@@ -47,7 +46,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Supported currencies
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var array
 	 */
 	public $supported_currencies = array( 'INR' );
@@ -56,7 +55,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Supported features
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 * @var array
 	 */
 	public $supported_features = array(
@@ -73,7 +72,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * This is to Initiate te CampTix options
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	public function camptix_init() {
 		$this->options = wp_parse_args(
@@ -91,111 +90,55 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		// Apply hooks only when payment gateway enable.
 		if ( $this->is_gateway_enable() ) {
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
-			add_action( 'camptix_attendee_form_additional_info', array( $this, 'add_phone_field' ), 10, 3 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 			add_filter( 'camptix_register_order_summary_header', array( $this, 'add_order_id_field' ), 10, 3 );
-			add_filter( 'camptix_form_register_complete_attendee_object', array( $this, 'add_attendee_info' ), 10, 3 );
-			add_action( 'camptix_checkout_update_post_meta', array( $this, 'save_attendee_info' ), 10, 2 );
-			add_filter( 'camptix_metabox_attendee_info_additional_rows', array( $this, 'show_attendee_info' ), 10, 2 );
+			add_filter( 'camptix_indian_payments_localize_vars', array( $this, 'add_localize_vars' ), 10, 1 );
 		}
-			wp_register_script( 'camptix-multi-popup-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, '1.0' );
-				wp_enqueue_script( 'camptix-multi-popup-js' );
-
 	}
 
 
 	/**
-	 * Show extra attendee information
+	 * Load scripts and style
 	 *
-	 * @since 0.1
-	 * access public
+	 * @since  1.0
+	 * @access public
+	 */
+	public function enqueue() {
+		wp_register_script( 'razorpay-js', 'https://checkout.razorpay.com/v1/checkout-new.js' );
+		wp_enqueue_script( 'razorpay-js' );
+	}
+
+	/**
+	 * Add localize params
 	 *
-	 * @param $rows
-	 * @param $attendee
+	 *
+	 * @since  1.0
+	 * @access public
+	 *
+	 * @param array $localize
 	 *
 	 * @return array
 	 */
-	public function show_attendee_info( $rows, $attendee ) {
-		if ( $attendee_phone = get_post_meta( $attendee->ID, 'tix_phone', true ) ) {
-			$rows[] = array(
-				__( 'Phone Number', 'camptix-razorpay' ),
-				$attendee_phone,
-			);
+	public function add_localize_vars( $localize ) {
+		// Bailout.
+		if ( ! isset( $_GET['tix_action'] ) || ( 'attendee_info' !== $_GET['tix_action'] ) ) {
+			return $localize;
 		}
 
-		if ( $receipt_id = get_post_meta( $attendee->ID, 'tix_receipt_id', true ) ) {
-			$rows[] = array(
-				__( 'Razorpay Receipt ID', 'camptix-razorpay-' ),
-				$receipt_id,
-			);
-		}
+		$merchant = $this->get_merchant_credentials();
 
-		return $rows;
-	}
+		$data = array(
+			'merchant_key_id' => $merchant['key_id'],
+			'gateway_id'      => $this->id,
+			'popup'           => array(
+				'color' => apply_filters( 'camptix_razorpay_popup_color', '' ),
 
+				// Ideal logo size: https://i.imgur.com/n5tjHFD.png
+				'image' => apply_filters( 'camptix_razorpay_popup_logo_image', '' ),
+			),
+		);
 
-	/**
-	 * Add extra attendee information
-	 *
-	 * @since  0.1
-	 * @access public
-	 *
-	 * @param $attendee
-	 * @param $attendee_info
-	 * @param $current_count
-	 *
-	 * @return mixed
-	 */
-	public function add_attendee_info( $attendee, $attendee_info, $current_count ) {
-		if ( ! empty( $_POST['tix_attendee_info'][ $current_count ]['phone'] ) ) {
-			$attendee->phone = trim( $_POST['tix_attendee_info'][ $current_count ]['phone'] );
-		}
-
-		return $attendee;
-	}
-
-
-	/**
-	 * Save extra attendee information
-	 *
-	 * @since  0.1
-	 * @access public
-	 *
-	 * @param $attendee_id
-	 * @param $attendee
-	 */
-	public function save_attendee_info( $attendee_id, $attendee ) {
-		if ( property_exists( $attendee, 'phone' ) ) {
-			update_post_meta( $attendee_id, 'tix_phone', $attendee->phone );
-		}
-	}
-
-
-	/**
-	 * Add phone field
-	 *
-	 * @since  0.1
-	 * @access public
-	 *
-	 * @param $form_data
-	 * @param $current_count
-	 * @param $tickets_selected_count
-	 *
-	 * @return string
-	 */
-	public function add_phone_field( $form_data, $current_count, $tickets_selected_count ) {
-		ob_start();
-		?>
-		<tr class="tix-row-phone">
-			<td class="tix-required tix-left"><?php _e( 'Phone Number', 'camptix-razorpay' ); ?>
-				<span class="tix-required-star">*</span>
-			</td>
-			<?php $value = isset( $form_data['tix_attendee_info'][ $current_count ]['phone'] ) ? $form_data['tix_attendee_info'][ $current_count ]['phone'] : ''; ?>
-			<td class="tix-right">
-				<input name="tix_attendee_info[<?php echo esc_attr( $current_count ); ?>][phone]" type="text" class="mobile" value="<?php echo esc_attr( $value ); ?>"/><br><small class="message"></small>
-			</td>
-		</tr>
-		<?php
-		echo ob_get_clean();
+		return array_merge( $localize, $data );
 	}
 
 
@@ -207,12 +150,12 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	public function add_order_id_field( $form_heading ) {
 		// $api         = $this->get_razjorpay_api();
 		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', $_POST['tix_tickets_selected'] ) : array();
-		if(isset($_POST['tix_coupon'])){
-		$coupon_id   = sanitize_text_field($_POST['tix_coupon']);
-		}else{
-		    $coupon_id = '';
+		if ( isset( $_POST['tix_coupon'] ) ) {
+			$coupon_id = sanitize_text_field( $_POST['tix_coupon'] );
+		} else {
+			$coupon_id = '';
 		}
-		
+
 
 		// Order info.
 		$order      = $this->razorpay_order_info( $tickets_info, $coupon_id );
@@ -242,7 +185,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Get mechant credentials
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 * @return array
 	 */
@@ -265,7 +208,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * Process payment gateway actions.
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 */
 	function template_redirect() {
@@ -279,88 +222,59 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 				if ( 'payment_return' == $_GET['tix_action'] ) {
 					$this->payment_return();
 				}
-
-				if ( 'payment_notify' == $_GET['tix_action'] ) {
-					// $this->payment_notify();
-				}
-			}
-
-			if ( 'attendee_info' == $_GET['tix_action'] ) {
-
-				wp_register_script( 'razorpay-js', 'https://checkout.razorpay.com/v1/checkout-new.js' );
-				wp_enqueue_script( 'razorpay-js' );
-			
-				$merchant = $this->get_merchant_credentials();
-
-				$data = array(
-					'merchant_key_id' => $merchant['key_id'],
-					'gateway_id'      => $this->id,
-					'popup'           => array(
-						'color' => apply_filters( 'camptix_razorpay_popup_color', '' ),
-
-						// Ideal logo size: https://i.imgur.com/n5tjHFD.png
-						'image' => apply_filters( 'camptix_razorpay_popup_logo_image', '' ),
-					),
-					'errors'          => array(
-						'phone' => __( 'Please fill in all required fields.', 'camptix-razorpay' ),
-					),
-				);
-
-				wp_localize_script( 'camptix-multi-popup-js', 'camptix_inr_vars', $data );
 			}
 		}// End if().
-
-	}   
+	}
 
 	/**
 	 * Add settings.
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 */
 	public function payment_settings_fields() {
 		$this->add_settings_field_helper(
 			'razorpay_popup_title',
-			__( 'Razorpay Popup Title', 'camptix-razorpay' ),
+			__( 'Razorpay Popup Title', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'live_key_id',
-			__( 'Live Key ID', 'camptix-razorpay' ),
+			__( 'Live Key ID', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'live_key_secret',
-			__( 'Live Key Secret', 'camptix-razorpay' ),
+			__( 'Live Key Secret', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'test_key_id',
-			__( 'Test Key ID', 'camptix-razorpay' ),
+			__( 'Test Key ID', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'test_key_secret',
-			__( 'Test Key Secret', 'camptix-razorpay' ),
+			__( 'Test Key Secret', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_text' )
 		);
 
 		$this->add_settings_field_helper(
 			'sandbox',
-			__( 'Sandbox Mode', 'camptix-razorpay' ),
+			__( 'Sandbox Mode', 'campt-indian-payment-gateway' ),
 			array( $this, 'field_yesno' ),
-			__( 'The RazorPay Sandbox is a way to test payments without using real accounts and transactions. When enabled it will use sandbox merchant details instead of the ones defined above.', 'camptix-razorpay' )
+			__( 'The RazorPay Sandbox is a way to test payments without using real accounts and transactions. When enabled it will use sandbox merchant details instead of the ones defined above.', 'campt-indian-payment-gateway' )
 		);
 	}
 
 	/**
 	 * Validate options
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 *
 	 * @param array $input
@@ -405,7 +319,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	/**
 	 * CampTix Payment CheckOut : Generate & Submit the payment form.
 	 *
-	 * @since  0.1
+	 * @since  1.0
 	 * @access public
 	 *
 	 * @param string $payment_token
@@ -484,11 +398,6 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			return;
 		}
 
-		// Add receipt id to attendees.
-		// foreach ( $attendees as $attendee ) {
-		// 	update_post_meta( $attendee->ID, 'tix_receipt_id', $receipt_id );
-		// }
-
 		// Reset attendees.
 		$attendee = reset( $attendees );
 
@@ -517,7 +426,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @return bool
 	 */
 	public function is_gateway_enable() {
-		return isset( $this->camptix_options['payment_methods'][ $this->id ] );
+		return ! empty( $this->camptix_options['payment_methods'][ $this->id ] );
 	}
 
 
