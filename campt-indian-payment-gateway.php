@@ -193,4 +193,29 @@ function cip_init() {
 	}
 }
 
-add_action( 'plugins_loaded', 'cip_init', 9999 );
+// Check if PHP current version is greater then 5.3.
+if ( version_compare( phpversion(), '5.3', '>=' ) ) {
+	add_action( 'plugins_loaded', 'cip_init', 9999 );
+} else {
+	if ( defined( 'WP_CLI' ) ) {
+		WP_CLI::warning( _cip_php_version_text() );
+	} else {
+		add_action( 'admin_notices', '_cip_php_version_error' );
+	}
+}
+
+/**
+ * Admin notice for incompatible versions of PHP.
+ */
+function _cip_php_version_error() {
+	printf( '<div class="error"><p>%s</p></div>', esc_html( _cip_php_version_text() ) );
+}
+
+/**
+ * String describing the minimum PHP version.
+ *
+ * @return string
+ */
+function _cip_php_version_text() {
+	return __( 'CampTix Indian Payments plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.3 or higher.', 'campt-indian-payment-gateway' );
+}
