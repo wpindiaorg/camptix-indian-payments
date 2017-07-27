@@ -448,11 +448,11 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @access pricate
 	 *
 	 * @param array  $tickets
-	 * @param string $coupon_id
+	 * @param string $coupon_code
 	 *
 	 * @return array
 	 */
-	private function razorpay_order_info( $tickets, $coupon_id ) {
+	private function razorpay_order_info( $tickets, $coupon_code ) {
 		/* @var  CampTix_Plugin $camptix */
 		global $camptix, $wpdb;
 
@@ -461,7 +461,8 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			'quantity' => 0,
 			'total'    => 0,
 		);
-		$total      = $coupon_percentage = $coupon_price = 0;
+
+		$total = $coupon_percentage = $coupon_price = $coupon_id = 0;
 
 		// Bailout.
 		if ( empty( $tickets ) ) {
@@ -469,12 +470,12 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		}
 
 		// Get coupon detail.
-		if ( ! empty( $coupon_id ) ) {
+		if ( ! empty( $coupon_code ) ) {
 			// Get coupon.
 			$coupon_id = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT ID FROM $wpdb->posts WHERE post_title = %s",
-					$coupon_id
+					$coupon_code
 				)
 			);
 
