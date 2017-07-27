@@ -149,7 +149,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 */
 	public function add_order_id_field( $form_heading ) {
 		// $api         = $this->get_razjorpay_api();
-		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', $_POST['tix_tickets_selected'] ) : array();
+		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', (array) $_POST['tix_tickets_selected'] ) : array();
 		if ( isset( $_POST['tix_coupon'] ) ) {
 			$coupon_id = sanitize_text_field( $_POST['tix_coupon'] );
 		} else {
@@ -286,10 +286,6 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 
 		if ( isset( $input['razorpay_popup_title'] ) ) {
 			$output['razorpay_popup_title'] = $input['razorpay_popup_title'];
-		}
-
-		if ( isset( $input['merchant_id'] ) ) {
-			$output['merchant_id'] = $input['merchant_id'];
 		}
 
 		if ( isset( $input['live_key_id'] ) ) {
