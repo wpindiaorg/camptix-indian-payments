@@ -206,6 +206,8 @@ if ( version_compare( phpversion(), '5.3', '>=' ) ) {
 
 /**
  * Admin notice for incompatible versions of PHP.
+ *
+ * @since 1.0
  */
 function _cip_php_version_error() {
 	printf( '<div class="error"><p>%s</p></div>', esc_html( _cip_php_version_text() ) );
@@ -213,6 +215,8 @@ function _cip_php_version_error() {
 
 /**
  * String describing the minimum PHP version.
+ *
+ * @since 1.0
  *
  * @return string
  */
