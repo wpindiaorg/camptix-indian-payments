@@ -1,24 +1,13 @@
 <?php
 
-// Include Requests only if not already defined
-if (class_exists('Requests') === false)
-{
-    require_once __DIR__.'/libs/Requests-1.6.1/library/Requests.php';
+// Include Requests
+// @see https://github.com/razorpay/razorpay-php/issues/33
+if( ! class_exists('Requests') ) {
+	require_once __DIR__.'/libs/Requests-1.6.1/library/Requests.php';
 }
 
-try
-{
-    Requests::register_autoloader();  
-
-    if (version_compare(Requests::VERSION, '1.6.0') === -1)
-    {
-        throw new Exception('Requests class found but did not match');
-    }
-}
-catch (\Exception $e)
-{
-    throw new Exception('Requests class found but did not match');
-}
+// Register requests autoloader
+Requests::register_autoloader();
 
 spl_autoload_register(function ($class)
 {
