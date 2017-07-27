@@ -149,7 +149,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 */
 	public function add_order_id_field( $form_heading ) {
 		// $api         = $this->get_razjorpay_api();
-		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', $_POST['tix_tickets_selected'] ) : array();
+		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', (array) $_POST['tix_tickets_selected'] ) : array();
 		if ( isset( $_POST['tix_coupon'] ) ) {
 			$coupon_id = sanitize_text_field( $_POST['tix_coupon'] );
 		} else {
@@ -286,10 +286,6 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 
 		if ( isset( $input['razorpay_popup_title'] ) ) {
 			$output['razorpay_popup_title'] = $input['razorpay_popup_title'];
-		}
-
-		if ( isset( $input['merchant_id'] ) ) {
-			$output['merchant_id'] = $input['merchant_id'];
 		}
 
 		if ( isset( $input['live_key_id'] ) ) {
@@ -452,11 +448,11 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @access pricate
 	 *
 	 * @param array  $tickets
-	 * @param string $coupon_id
+	 * @param string $coupon_code
 	 *
 	 * @return array
 	 */
-	private function razorpay_order_info( $tickets, $coupon_id ) {
+	private function razorpay_order_info( $tickets, $coupon_code ) {
 		/* @var  CampTix_Plugin $camptix */
 		global $camptix, $wpdb;
 
@@ -465,7 +461,8 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			'quantity' => 0,
 			'total'    => 0,
 		);
-		$total      = $coupon_percentage = $coupon_price = 0;
+
+		$total = $coupon_percentage = $coupon_price = $coupon_id = 0;
 
 		// Bailout.
 		if ( empty( $tickets ) ) {
@@ -473,12 +470,12 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		}
 
 		// Get coupon detail.
-		if ( ! empty( $coupon_id ) ) {
+		if ( ! empty( $coupon_code ) ) {
 			// Get coupon.
 			$coupon_id = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT ID FROM $wpdb->posts WHERE post_title = %s",
-					$coupon_id
+					$coupon_code
 				)
 			);
 
