@@ -108,7 +108,7 @@ jQuery(document).ready(function ($) {
 
 
         }else
-        if (phone.length > 10 )
+        if (phone.length < 10 )
         {
         	console.log('test');
             //alert('Phone number must be 10 digits.');

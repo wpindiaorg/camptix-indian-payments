@@ -208,16 +208,15 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			if ( $data['status'] == "Credit" ) {
 				// Payment was successful, mark it as successful in your database.
 				// You can acess payment_request_id, purpose etc here.
-				$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_COMPLETED );
-				$abcd = $this->payment_result( $_REQUEST['tix_payment_token'] );
-
+				$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_COMPLETED);
+				
 			} else {
 				// Payment was unsuccessful, mark it as failed in your database.
 				// You can acess payment_request_id, purpose etc here.
-				$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_FAILED );
+				$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_FAILED);
 			}
 		} else {
-			$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_PENDING );
+			$this->payment_result( $_REQUEST['tix_payment_token'], CampTix_Plugin::PAYMENT_STATUS_PENDING);
 		}
 		
 	}
@@ -267,8 +266,6 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			array(
 				'post_type'   => 'tix_attendee',
 				'post_status' => 'any',
-				'orderby'     => 'ID',
-				'order'       => 'ASC',
 				'meta_query'  => array(
 					array(
 						'key'     => 'tix_payment_token',
@@ -296,11 +293,27 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		);
 
 		$url = $this->options['sandbox'] ? 'https://test.instamojo.com/api/1.1/payment-requests/' : 'https://www.instamojo.com/api/1.1/payment-requests/';
+           //}
+		$phone = ltrim( $extra_info['phone'], '0' );
+
+        if ( strlen($phone) > 10 ) {
+            $attendee_phone = substr( $phone, -10 );
+            $attendee_phone = ltrim( $attendee_phone, '0' );
+            if ( strlen($attendee_phone) <= 9 ) {
+                $attendee_phone = str_pad( $attendee_phone, 10, '9', STR_PAD_LEFT);
+             
+        }
+        } elseif ( strlen($phone) <= 9 ) {
+             $attendee_phone = str_pad( $phone, 10, '9', STR_PAD_LEFT);
+        }else{
+        	//It will execute when number is complete incomplete for validating instamojo number process.
+            $attendee_phone = '9999999999';
+        }
 
 		$payload = Array(
 			'purpose'                 => $productinfo,
 			'amount'                  => $order_amount,
-			'phone'                   => $extra_info['phone'],
+			'phone'                   => $attendee_phone,
 			'buyer_name'              => $name,
 			'redirect_url'            => $return_url,
 			'send_email'              => false,
@@ -309,7 +322,6 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			'email'                   => $email,
 			'allow_repeated_payments' => false,
 		);
-
 
 		$params = array(
 			'method' => 'POST',
@@ -336,10 +348,13 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			$json_decode = json_decode( $response['body']);
 			$long_url = $json_decode->payment_request->longurl;
 			header( 'Location:' . $long_url );
-		}
+		}else{
 		echo 'Invalid Insatmojo Access Key & Token';
-
 		return;
+		}
+      	
+      	return;
+
 	}
 
 	/**

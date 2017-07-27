@@ -426,7 +426,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @return bool
 	 */
 	public function is_gateway_enable() {
-		return isset( $this->camptix_options['payment_methods'][ $this->id ] );
+		return ! empty( $this->camptix_options['payment_methods'][ $this->id ] );
 	}
 
 
