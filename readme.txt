@@ -1,9 +1,9 @@
 === Camptix Indian Payments ===
-Contributors:      wpindia, codexdemon, ravinderk, vachan
+Contributors:      wpindia, codexdemon, ravinderk, vachan, arvindbarskar
 Tags:              camptix, camptix payment, event ticketing, razorpay, instamojo, Indian payment, camptix Indian gateway, camptix payment gateway
 Requires at least: 3.5
 Tested up to:      4.8
-Stable tag:        1.0
+Stable tag:        1.2
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,9 +11,9 @@ Simple and Flexible payment ticketing for Camptix using Multiple Indian Payment 
 
 == Description ==
 
-CampTix Multiple Indian Payment Gateway Solutoin for Camptix Plugin. Allow visitors to purchase tickets to your online or offline event using Camptix Multiple Indian payment gateway, directly from your WordPress or WordCamp website.
+CampTix Multiple Indian Payment Gateway Solution for Camptix Plugin. Allow visitors to purchase tickets to your online or offline event using Camptix Multiple Indian payment gateway, directly from your WordPress or WordCamp website.
 
-Camptix Multiple Indian Payment Gateway Solutoions Accpet payments in INR through Instamojo, Razorpay and more comming soon using the CampTix plugin. CampTix plugin needs to be installed and activated for the Camptix Multiple Indian Payment Gateway Solutoin to work.
+Camptix Multiple Indian Payment Gateway Solutions Accept payments in INR through Instamojo, Razorpay and more coming soon using the CampTix plugin. CampTix plugin needs to be installed and activated for the Camptix Multiple Indian Payment Gateway Solution to work.
 
 Feel free to post your feature requests, issues and pull requests to [Camptix Indian Payments on GitHub](https://github.com/wpindiaorg/camptix-indian-payments "Camptix Indian Payments on GitHub").
 
@@ -43,7 +43,14 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 == Screenshots ==
 
 1. Instamojo Enable
+2. Razorpay Enable
 
 == Changelog ==
+= 1.2 =
+* Fixed Bug and Enhancement 
+
+= 1.1 =
+* Fixed Bug and Enhancement 
+
 = 1.0 =
 * First version
