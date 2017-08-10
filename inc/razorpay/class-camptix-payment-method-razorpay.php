@@ -148,6 +148,8 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @return mixed
 	 */
 	public function add_order_id_field( $form_heading ) {
+		global $camptix;
+
 		// $api         = $this->get_razjorpay_api();
 		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', (array) $_POST['tix_tickets_selected'] ) : array();
 		if ( isset( $_POST['tix_coupon'] ) ) {
@@ -156,27 +158,32 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			$coupon_id = '';
 		}
 
+		try {
+			// Order info.
+			$order      = $this->razorpay_order_info( $tickets_info, $coupon_id );
+			$receipt_id = uniqid( 'camtix-razorpay' );
 
-		// Order info.
-		$order      = $this->razorpay_order_info( $tickets_info, $coupon_id );
-		$receipt_id = uniqid( 'camtix-razorpay' );
+			// Creates order.
+			$api   = $this->get_razjorpay_api();
+			$order = $api->order->create(
+				array(
+					'receipt'         => uniqid( 'camtix-razorpay' ),
+					'amount'          => $order['total'] * 100,
+					'currency'        => 'INR',
+					'payment_capture' => true,
+				)
+			);
 
-		// Creates order
-		$api   = $this->get_razjorpay_api();
-		$order = $api->order->create(
-			array(
-				'receipt'         => uniqid( 'camtix-razorpay' ),
-				'amount'          => $order['total'] * 100,
-				'currency'        => 'INR',
-				'payment_capture' => true,
-			)
-		);
-
-		echo sprintf(
-			'<input type="hidden" name="razorpay_order_id" value="%s"><input type="hidden" name="razorpay_receipt_id" value="%s">',
-			$order->id,
-			$receipt_id
-		);
+			echo sprintf(
+				'<input type="hidden" name="razorpay_order_id" value="%s"><input type="hidden" name="razorpay_receipt_id" value="%s">',
+				$order->id,
+				$receipt_id
+			);
+		} catch ( Exception $e ) {
+			echo '<div id="tix-errors"><div class="tix-error">';
+			echo sprintf( esc_html__( 'Razorpay error: %s', 'campt-indian-payment-gateway' ), $e->getMessage() );
+			echo '</div></div>';
+		}
 
 		return $form_heading;
 	}
