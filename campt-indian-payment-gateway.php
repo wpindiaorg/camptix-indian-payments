@@ -79,7 +79,7 @@ class Camptix_Indian_Payments {
 		// Load scripts ans styles.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 		//Load languages
-		add_action( 'plugins_loaded',  'camptindian_load_textdomain');
+		add_action( 'plugins_loaded',  array($this, 'camptindian_load_textdomain') );
 		
 	}
 
@@ -102,7 +102,7 @@ class Camptix_Indian_Payments {
      *
      * @since 1.0.0
      */
-    function camptindian_load_textdomain() {
+    private function camptindian_load_textdomain() {
       load_plugin_textdomain( 'campt-indian-payment-gateway', false, basename( dirname( __FILE__ ) ) . '/languages/' ); 
     }
 
