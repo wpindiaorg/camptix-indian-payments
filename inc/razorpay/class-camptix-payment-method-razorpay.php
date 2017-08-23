@@ -128,13 +128,13 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		$merchant = $this->get_merchant_credentials();
 
 		$data = array(
-			'merchant_key_id' => $merchant['key_id'],
+			'merchant_key_id' => esc_js( $merchant['key_id'] ),
 			'gateway_id'      => $this->id,
 			'popup'           => array(
-				'color' => apply_filters( 'camptix_razorpay_popup_color', '' ),
+				'color' => esc_js( apply_filters( 'camptix_razorpay_popup_color', '' ) ),
 
 				// Ideal logo size: https://i.imgur.com/n5tjHFD.png
-				'image' => apply_filters( 'camptix_razorpay_popup_logo_image', '' ),
+				'image' => esc_js( apply_filters( 'camptix_razorpay_popup_logo_image', '' ) ),
 			),
 		);
 
@@ -148,6 +148,8 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @return mixed
 	 */
 	public function add_order_id_field( $form_heading ) {
+		global $camptix;
+
 		// $api         = $this->get_razjorpay_api();
 		$tickets_info = ! empty( $_POST['tix_tickets_selected'] ) ? array_map( 'esc_attr', (array) $_POST['tix_tickets_selected'] ) : array();
 		if ( isset( $_POST['tix_coupon'] ) ) {
@@ -156,27 +158,32 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 			$coupon_id = '';
 		}
 
+		try {
+			// Order info.
+			$order      = $this->razorpay_order_info( $tickets_info, $coupon_id );
+			$receipt_id = uniqid( 'camtix-razorpay' );
 
-		// Order info.
-		$order      = $this->razorpay_order_info( $tickets_info, $coupon_id );
-		$receipt_id = uniqid( 'camtix-razorpay' );
+			// Creates order.
+			$api   = $this->get_razjorpay_api();
+			$order = $api->order->create(
+				array(
+					'receipt'         => uniqid( 'camtix-razorpay' ),
+					'amount'          => $order['total'] * 100,
+					'currency'        => 'INR',
+					'payment_capture' => true,
+				)
+			);
 
-		// Creates order
-		$api   = $this->get_razjorpay_api();
-		$order = $api->order->create(
-			array(
-				'receipt'         => uniqid( 'camtix-razorpay' ),
-				'amount'          => $order['total'] * 100,
-				'currency'        => 'INR',
-				'payment_capture' => true,
-			)
-		);
-
-		echo sprintf(
-			'<input type="hidden" name="razorpay_order_id" value="%s"><input type="hidden" name="razorpay_receipt_id" value="%s">',
-			$order->id,
-			$receipt_id
-		);
+			echo sprintf(
+				'<input type="hidden" name="razorpay_order_id" value="%s"><input type="hidden" name="razorpay_receipt_id" value="%s">',
+				$order->id,
+				$receipt_id
+			);
+		} catch ( Exception $e ) {
+			echo '<div id="tix-errors"><div class="tix-error">';
+			echo sprintf( esc_html__( 'Razorpay error: %s', 'campt-indian-payment-gateway' ), $e->getMessage() );
+			echo '</div></div>';
+		}
 
 		return $form_heading;
 	}
@@ -285,7 +292,7 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 		$output = $this->options;
 
 		if ( isset( $input['razorpay_popup_title'] ) ) {
-			$output['razorpay_popup_title'] = $input['razorpay_popup_title'];
+			$output['razorpay_popup_title'] = wp_kses_post( $input['razorpay_popup_title'] );
 		}
 
 		if ( isset( $input['live_key_id'] ) ) {
