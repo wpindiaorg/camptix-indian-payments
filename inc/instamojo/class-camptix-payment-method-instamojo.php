@@ -51,9 +51,9 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 
 	function payment_settings_fields() {
 		// code change by me start
-		$this->add_settings_field_helper( __('Instamojo-Api-Key', 'campt-indian-payment-gateway'), 'Instamojo Api KEY', array( $this, 'field_text' ) );
-		$this->add_settings_field_helper( __('Instamojo-Auth-Token', 'campt-indian-payment-gateway'), 'Instamojo Auth Token', array( $this, 'field_text' ) );
-		$this->add_settings_field_helper( __('Instamojo-salt', 'campt-indian-payment-gateway'), 'Instamojo Salt', array( $this, 'field_text' ) );		
+		$this->add_settings_field_helper( __('Instamojo-Api-Key', 'campt-indian-payment-gateway'), __('Instamojo Api KEY', 'campt-indian-payment-gateway'), array( $this, 'field_text' ) );
+		$this->add_settings_field_helper( __('Instamojo-Auth-Token', 'campt-indian-payment-gateway'), __('Instamojo Auth Token', 'campt-indian-payment-gateway') , array( $this, 'field_text' ) );
+		$this->add_settings_field_helper( __('Instamojo-salt', 'campt-indian-payment-gateway'), __('Instamojo Salt', 'campt-indian-payment-gateway'), array( $this, 'field_text' ) );		
 		$this->add_settings_field_helper( 'sandbox', __( 'Sandbox Mode', 'campt-indian-payment-gateway' ), array( $this, 'field_yesno' ),
 			__( "The Instamojo Sandbox is a way to test payments without using real accounts and transactions. If you'd like to use Sandbox Mode, you'll need to create a <a href='https://docs.instamojo.com/docs/what-is-the-difference-between-the-sandbox-and-production-environment'>Instamojo Developer</a> account and obtain the API credentials for your sandbox user.",'campt-indian-payment-gateway' )
 		);
