@@ -299,12 +299,12 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			$json_decode = json_decode( $response['body']);
 			$long_url = $json_decode->payment_request->longurl;
 			header( 'Location:' . $long_url );
-		}else{
-		echo 'Invalid Insatmojo Access Key & Token';
-		return;
+		} else {
+			echo __( 'Invalid Insatmojo Access Key & Token', 'campt-indian-payment-gateway' );
+			return;
 		}
-      	
-      	return;
+
+		return;
 
 	}
 
@@ -320,8 +320,8 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 
 		$payment_token = ( isset( $_REQUEST['tix_payment_token'] ) ) ? trim( $_REQUEST['tix_payment_token'] ) : '';
 
-		if ( ! $payment_token ) {
-			die( 'empty token' );
+		if ( !$payment_token ) {
+			die( __( 'Empty Token', 'campt-indian-payment-gateway' ) );
 		}
 		// Set the associated attendees to cancelled.
 		return $this->payment_result( $payment_token, CampTix_Plugin::PAYMENT_STATUS_CANCELLED );
