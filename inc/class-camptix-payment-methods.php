@@ -86,7 +86,7 @@ class Camptix_Indian_Payment_Methods {
 		?>
 		<tr class="tix-row-phone">
 			<td class="tix-required tix-left">
-				<?php _e( 'Phone Number', 'campt-indian-payment-gateway' ); ?>
+				<?php esc_html_e( 'Phone Number', 'campt-indian-payment-gateway' ); ?>
 				<span class="tix-required-star">*</span>
 			</td>
 			<?php $value = isset( $form_data['tix_attendee_info'][ $current_count ]['phone'] ) ? $form_data['tix_attendee_info'][ $current_count ]['phone'] : ''; ?>
@@ -176,7 +176,7 @@ class Camptix_Indian_Payment_Methods {
 		?>
 		<tr>
 			<td class="tix-required tix-left">
-				<?php _e( 'Phone Number', 'campt-indian-payment-gateway' ); ?>
+				<?php esc_html_e( 'Phone Number', 'campt-indian-payment-gateway' ); ?>
 				<span class="tix-required-star">*</span></td>
 			<td class="tix-right">
 				<input name="tix_ticket_info[phone]" type="text" value="<?php echo esc_attr( get_post_meta( $attendee->ID, 'tix_phone', true ) ); ?>"/>
