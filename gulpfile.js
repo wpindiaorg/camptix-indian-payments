@@ -21,7 +21,7 @@ gulp.task('pot', function () {
 	return gulp.src('**/*.php')
 		.pipe(sort())
 		.pipe(wpPot({
-			package: 'CampTix-Razorpay',
+			package: 'CampTix-Indian-Payment',
 			domain: 'campt-indian-payment-gateway', //textdomain
 			destFile: 'camptix-indian-payments.pot',
 			bugReport: 'https://github.com/wpindiaorg/camptix-indian-payments/issues/new',
