@@ -3,11 +3,11 @@ Contributors:      wpindia, codexdemon, ravinderk, vachan, arvindbarskar
 Tags:              camptix, camptix payment, event ticketing, razorpay, instamojo, Indian payment, camptix Indian gateway, camptix payment gateway
 Requires at least: 3.5
 Tested up to:      4.8
-Stable tag:        1.3
+Stable tag:        1.5
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
-Simple and Flexible payment ticketing for Camptix using Multiple Indian Payment Gateway Solutoin
+Simple and Flexible payment ticketing for Camptix using Multiple Indian Payment Gateway Solution
 
 == Description ==
 
@@ -33,8 +33,8 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 *Razorpay*: Signup at [Razorpay.com](https://dashboard.razorpay.com/#/access/signup) and complete registration profile to get account activated.
 
 = Is there any documentation available? =
-*Instamojo*: Documentation avalible [here](https://docs.instamojo.com/v2/)
-*Razorpay*: Documentation avalible [here](https://docs.razorpay.com/)
+*Instamojo*: Documentation available [here](https://docs.instamojo.com/v2/)
+*Razorpay*: Documentation available [here](https://docs.razorpay.com/)
 
 = How to get Access Token and API Key? =
 *Instamojo*: Login > [API &amp; Plugins](https://www.instamojo.com/integrations) | Also Check [Youtube Video](https://www.youtube.com/watch?v=9j5RThz3FD0).
@@ -46,6 +46,15 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 2. Razorpay Enable
 
 == Changelog ==
+=1.5=
+JavaScript breaks registration flow for Instamojo #41 Fixed
+
+=1.4=
+Fixed Text domain and Language Translation Bug Fixed
+
+=1.3 =
+* Fixed Bug and Enhancement 
+
 = 1.2 =
 * Fixed Bug and Enhancement 
 

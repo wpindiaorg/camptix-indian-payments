@@ -104,6 +104,26 @@ class CampTix_Payment_Method_RazorPay extends CampTix_Payment_Method {
 	 * @access public
 	 */
 	public function enqueue() {
+
+		if ( ! isset( $_GET['tix_action'] ) || ( 'attendee_info' !== $_GET['tix_action'] ) ) {
+			return;
+		}
+
+		wp_register_script( 'camptix-indian-payments-main-razorpayjs', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup-razorpay.js', array( 'jquery' ), false, CAMPTIX_INDIAN_PAYMENTS_VERSION );
+		wp_enqueue_script( 'camptix-indian-payments-main-razorpayjs' );
+
+		$data = apply_filters(
+			'camptix_indian_payments_localize_vars',
+			array(
+				'errors' => array(
+					'phone' => __( 'Please fill in all required fields.', 'campt-indian-payment-gateway' ),
+				),
+			)
+		);
+
+		wp_localize_script( 'camptix-indian-payments-main-razorpayjs', 'camptix_inr_vars', $data );
+
+
 		wp_register_script( 'razorpay-js', 'https://checkout.razorpay.com/v1/checkout-new.js' );
 		wp_enqueue_script( 'razorpay-js' );
 	}
