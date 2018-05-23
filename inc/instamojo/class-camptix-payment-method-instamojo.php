@@ -258,8 +258,6 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
         }
         } elseif ( strlen($phone) <= 9 ) {
              $attendee_phone = str_pad( $phone, 10, '9', STR_PAD_LEFT);
-        }else{
-            $attendee_phone = '9999999999';
         }
 
 		$payload = Array(
