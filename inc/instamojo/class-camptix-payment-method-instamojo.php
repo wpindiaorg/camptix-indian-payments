@@ -261,7 +261,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		} elseif ( strlen($phone) <= 9 ) {
 		     $attendee_phone = str_pad( $phone, 10, '9', STR_PAD_LEFT);
 		} else {
-			$indian_mobile_regex = "/^[6-9][0-9]{9}$/"; // Indian mobile numbers start with 9,8,7, or 6.
+			$indian_mobile_regex = "/^[6-9][0-9]{9}$/"; // Indian mobile numbers start with 9,8,7, or 6. issue #43, #46 
 			if ( 1 === preg_match( $indian_mobile_regex, $phone ) ) {
 		    		$attendee_phone = $phone; // Instamojo is expecting a 10 digit value.
 			} else {
@@ -270,7 +270,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		}
 
 		$payload = Array(
-			'purpose'                 => $productinfo,
+			'purpose'                 => str_pad( $productinfo, 30, '' ), // Instamojo expects the minimum 30 characters. issue #45
 			'amount'                  => $order_amount,
 			'phone'                   => $attendee_phone,
 			'buyer_name'              => $name,
