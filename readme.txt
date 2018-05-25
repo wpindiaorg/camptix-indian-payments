@@ -2,8 +2,8 @@
 Contributors:      wpindia, codexdemon, ravinderk, vachan, arvindbarskar
 Tags:              camptix, camptix payment, event ticketing, razorpay, instamojo, Indian payment, camptix Indian gateway, camptix payment gateway
 Requires at least: 3.5
-Tested up to:      4.8
-Stable tag:        1.3
+Tested up to:      4.9.6
+Stable tag:        1.4
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,10 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 2. Razorpay Enable
 
 == Changelog ==
+= 1.4 =
+* FIX: Hardcoded attendee phone (Github issue #43, $46)
+* FIX: Charachter length of 30 (Github issue #45)
+
 = 1.2 =
 * Fixed Bug and Enhancement 
 
