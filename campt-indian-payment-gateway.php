@@ -5,7 +5,7 @@
  * Description: Simple and Flexible payment ticketing for Camptix using Indian Payment Platforms
  * Author: India WordPress Community
  * Author URI: https://github.com/wpindiaorg/
- * Version: 1.5
+ * Version: 1.7
  * License: GPLv2 or later
  * Text Domain: campt-indian-payment-gateway
  * Domain Path: /languages
@@ -92,7 +92,7 @@ class Camptix_Indian_Payments {
 	 */
 	private function setup_contants() {
 		// Definitions
-		define( 'CAMPTIX_INDIAN_PAYMENTS_VERSION', '1.0' );
+		define( 'CAMPTIX_INDIAN_PAYMENTS_VERSION', '1.5' );
 		define( 'CAMPTIX_MULTI_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CAMPTIX_MULTI_URL', plugin_dir_url( __FILE__ ) );
 	}

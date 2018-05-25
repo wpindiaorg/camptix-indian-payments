@@ -248,10 +248,9 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		//It will execute when number is complete incomplete for validating instamojo number process.
         
 		$phone = ltrim( $extra_info['phone'], '0' );
-		$phone = ltrim( $phone, '+91' ); // Remove '+91' CountyCode of India : Not supported by Instamojo
-		$phone = ltrim( $phone, '+' ); // Remove '+' for international attendee : Not supported by Instamojo
-		$phone = str_replace( array( ' ', '-', '.' ), '', $phone ); // Remove special characters : Not supported by Instamojo
-
+		$phone = ltrim( $phone, '+91' ); // Remove '+91' CountyCode of India : Not supported by Instamojo. issue #43, #46
+		$phone = ltrim( $phone, '+' ); // Remove '+' for international attendee : Not supported by Instamojo. issue #43, #46
+		$phone = str_replace( array( ' ', '-', '.' ), '', $phone ); // Remove special characters : Not supported by Instamojo. issue #43, #46
 		if ( strlen($phone) > 10 ) {
 		    $attendee_phone = substr( $phone, -10 );
 		    $attendee_phone = ltrim( $attendee_phone, '0' );
@@ -261,14 +260,14 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		} elseif ( strlen($phone) <= 9 ) {
 		     $attendee_phone = str_pad( $phone, 10, '9', STR_PAD_LEFT);
 		} else {
-			$indian_mobile_regex = "/^[6-9][0-9]{9}$/"; // Indian mobile numbers start with 9,8,7, or 6. issue #43, #46 
-			if ( 1 === preg_match( $indian_mobile_regex, $phone ) ) {
-		    		$attendee_phone = $phone; // Instamojo is expecting a 10 digit value.
-			} else {
-				$attendee_phone = '9999999999'; // No clearity about international number via API.
-			}
+			$attendee_phone = $phone; // Instamojo is expecting a 10 digit value.
 		}
 
+		// Indian mobile numbers start with 9,8,7, or 6. issue #43, #46
+		if ( ! preg_match( "/^[6-9][0-9]{9}$/", $attendee_phone ) ) {
+			$attendee_phone = '9999999999'; // No clearity about international number via API; thus using the example.
+		}
+		
 		$payload = Array(
 			'purpose'                 => str_pad( $productinfo, 30, '' ), // Instamojo expects the minimum 30 characters. issue #45
 			'amount'                  => $order_amount,
