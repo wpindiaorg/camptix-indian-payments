@@ -269,7 +269,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 		}
 		
 		$payload = Array(
-			'purpose'                 => str_pad( $productinfo, 30, '' ), // Instamojo expects the minimum 30 characters. issue #45
+			'purpose'                 => substr( $productinfo, 0, 30 ), // https://github.com/wpindiaorg/camptix-indian-payments/issues/45#issuecomment-392804508
 			'amount'                  => $order_amount,
 			'phone'                   => $attendee_phone,
 			'buyer_name'              => $name,
