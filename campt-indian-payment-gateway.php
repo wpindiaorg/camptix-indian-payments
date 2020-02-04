@@ -80,7 +80,7 @@ class Camptix_Indian_Payments {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 		//Load languages
 		add_action( 'plugins_loaded',  array($this, 'camptindian_load_textdomain') );
-		
+
 	}
 
 
@@ -103,7 +103,7 @@ class Camptix_Indian_Payments {
      * @since 1.0.0
      */
     private function camptindian_load_textdomain() {
-      load_plugin_textdomain( 'campt-indian-payment-gateway', false, basename( dirname( __FILE__ ) ) . '/languages/' ); 
+      load_plugin_textdomain( 'campt-indian-payment-gateway', false, basename( dirname( __FILE__ ) ) . '/languages/' );
     }
 
 	/**
@@ -177,8 +177,12 @@ class Camptix_Indian_Payments {
 		if ( ! isset( $_GET['tix_action'] ) || ( 'attendee_info' !== $_GET['tix_action'] ) ) {
 			return;
 		}
+		
+		// Use minified libraries if SCRIPT_DEBUG is turned off
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_register_script( 'camptix-indian-payments-main-js', CAMPTIX_MULTI_URL . 'assets/js/camptix-multi-popup.js', array( 'jquery' ), false, CAMPTIX_INDIAN_PAYMENTS_VERSION );
+
+		wp_register_script( 'camptix-indian-payments-main-js', CAMPTIX_MULTI_URL . 'assets/js/dist/camptix-multi-popup' . $suffix . '.js', array( 'jquery' ), false, CAMPTIX_INDIAN_PAYMENTS_VERSION );
 		wp_enqueue_script( 'camptix-indian-payments-main-js' );
 
 		$data = apply_filters(

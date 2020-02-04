@@ -9,7 +9,11 @@
 var gulp = require('gulp'),
 	sort = require('gulp-sort'),
 	wpPot = require('gulp-wp-pot'),
-	checktextdomain = require('gulp-checktextdomain');
+	checktextdomain = require('gulp-checktextdomain'),
+	uglify = require('gulp-uglify'),
+	pump = require('pump'),
+	rename = require('gulp-rename'),
+	sourcemaps = require('gulp-sourcemaps');
 
 /* POT file task
  ------------------------------------- */
@@ -17,7 +21,7 @@ gulp.task('pot', function () {
 	return gulp.src('**/*.php')
 		.pipe(sort())
 		.pipe(wpPot({
-			package: 'CampTix-Razorpay',
+			package: 'CampTix-Indian-Payment',
 			domain: 'campt-indian-payment-gateway', //textdomain
 			destFile: 'camptix-indian-payments.pot',
 			bugReport: 'https://github.com/wpindiaorg/camptix-indian-payments/issues/new',
@@ -54,10 +58,25 @@ gulp.task('textdomain', function () {
 		.pipe(checktextdomain(options))
 });
 
+/* Compress task
+ ------------------------------------- */
+gulp.task('compress', function (cb) {
+  pump([
+        gulp.src('assets/js/*.js')
+        .pipe( sourcemaps.init() )
+        .pipe( sourcemaps.init( { loadMaps: true } ) )
+        .pipe( uglify() )
+        .pipe( sourcemaps.write ( '/' ) )
+        .pipe( rename( { suffix: '.min' } ) ),
+        gulp.dest('assets/js/dist')
+    ],
+    cb
+  );
+});
 
 /* Default Gulp task
  ------------------------------------- */
 gulp.task('default', function () {
 	// Run all the tasks!
-	gulp.start('textdomain','pot');
+	gulp.start('textdomain','pot','compress');
 });
