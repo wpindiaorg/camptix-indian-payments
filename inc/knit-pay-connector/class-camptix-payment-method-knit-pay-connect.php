@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 class CampTix_Payment_Method_Knit_Pay_Connect extends CampTix_Payment_Method {
-	public $id                   = '';
+	public $id                   = 'knit-pay-connect';
 	public $name                 = '';
 	public $description          = '';
 	public $supported_currencies = [
@@ -477,3 +477,4 @@ class CampTix_Payment_Method_Knit_Pay_Connect extends CampTix_Payment_Method {
 		);
 	}
 }
+
