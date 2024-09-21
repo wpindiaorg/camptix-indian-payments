@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CampTix Knit Pay Connect Payment Method
  *
@@ -242,7 +241,7 @@ class CampTix_Payment_Method_Knit_Pay_Connect extends CampTix_Payment_Method {
 	}
 
 	function template_redirect() {
-		if ( ! isset( $_REQUEST['tix_payment_method'] ) || $this->id != $_REQUEST['tix_payment_method'] ) {
+		if ( ! isset( $_REQUEST['tix_payment_method'] ) || $this->id !== $_REQUEST['tix_payment_method'] ) {
 			return;
 		}
 		if ( isset( $_GET['tix_action'] ) ) {
@@ -291,7 +290,7 @@ class CampTix_Payment_Method_Knit_Pay_Connect extends CampTix_Payment_Method {
 			return $this->handle_checkout_error( $payment_token, $attendee_id, $response->get_error_message() );
 		}
 
-		// Process the response
+		// Process the response.
 		$result = wp_remote_retrieve_body( $response );
 		$result = json_decode( $result );
 
@@ -478,5 +477,3 @@ class CampTix_Payment_Method_Knit_Pay_Connect extends CampTix_Payment_Method {
 		);
 	}
 }
-
-
