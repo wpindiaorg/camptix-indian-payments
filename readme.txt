@@ -3,7 +3,7 @@ Contributors:      wpindia, codexdemon, ravinderk, vachan, arvindbarskar
 Tags:              camptix, camptix payment, event ticketing, razorpay, instamojo, Indian payment, camptix Indian gateway, camptix payment gateway
 Requires at least: 3.5
 Tested up to:      4.9.6
-Stable tag:        1.8
+Stable tag:        1.9
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Simple and Flexible payment ticketing for Camptix using Multiple Indian Payment 
 
 CampTix Multiple Indian Payment Gateway Solution for Camptix Plugin. Allow visitors to purchase tickets to your online or offline event using Camptix Multiple Indian payment gateway, directly from your WordPress or WordCamp website.
 
-Camptix Multiple Indian Payment Gateway Solutions Accept payments in INR through Instamojo, Razorpay and more coming soon using the CampTix plugin. CampTix plugin needs to be installed and activated for the Camptix Multiple Indian Payment Gateway Solution to work.
+Camptix Multiple Indian Payment Gateway Solutions Accept payments in INR through Instamojo, Razorpay, Knit Pay Connect and more coming soon using the CampTix plugin. CampTix plugin needs to be installed and activated for the Camptix Multiple Indian Payment Gateway Solution to work. Knit Pay currently supports more than 10 Indian payment gateways.
 
 Feel free to post your feature requests, issues and pull requests to [Camptix Indian Payments on GitHub](https://github.com/wpindiaorg/camptix-indian-payments "Camptix Indian Payments on GitHub").
 
@@ -39,6 +39,7 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 = How to get Access Token and API Key? =
 *Instamojo*: Login > [API &amp; Plugins](https://www.instamojo.com/integrations) | Also Check [Youtube Video](https://www.youtube.com/watch?v=9j5RThz3FD0).
 *Razorpay*: Dashboard > Test/Live Mode > Settings > [API Keys](https://dashboard.razorpay.com/#/app/keys).
+*Knit Pay Connect: Install [Knit Pay](https://wordpress.org/plugins/knit-pay/) Plugin on any Community Hosting, and get the [Application Password](https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/)
 
 == Screenshots ==
 
@@ -46,6 +47,9 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 2. Razorpay Enable
 
 == Changelog ==
+=1.9=
+* Added Support for Knit Pay Connect. Using which almost any Indian Payment Gateway can be integrated.
+
 =1.8=
 * FIX: Product Info title length - Github issue [#45](https://github.com/wpindiaorg/camptix-indian-payments/issues/45#issuecomment-392804508)
 
