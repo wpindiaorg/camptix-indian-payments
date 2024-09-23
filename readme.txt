@@ -1,5 +1,5 @@
 === Camptix Indian Payments ===
-Contributors:      wpindia, codexdemon, ravinderk, vachan, arvindbarskar
+Contributors:      wpindia, codexdemon, ravinderk, vachan, arvindbarskar, GautamMKGarg, knitpay
 Tags:              camptix, camptix payment, event ticketing, razorpay, instamojo, Indian payment, camptix Indian gateway, camptix payment gateway
 Requires at least: 3.5
 Tested up to:      6.6
