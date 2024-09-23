@@ -39,7 +39,7 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 = How to get Access Token and API Key? =
 *Instamojo*: Login > [API &amp; Plugins](https://www.instamojo.com/integrations) | Also Check [Youtube Video](https://www.youtube.com/watch?v=9j5RThz3FD0).
 *Razorpay*: Dashboard > Test/Live Mode > Settings > [API Keys](https://dashboard.razorpay.com/#/app/keys).
-*Knit Pay Connect: Install [Knit Pay](https://wordpress.org/plugins/knit-pay/) Plugin on any Community Hosting, and get the [Application Password](https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/)
+*Knit Pay Connect*: Install [Knit Pay](https://wordpress.org/plugins/knit-pay/) Plugin on any Community Hosting, and get the [Application Password](https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/)
 
 == Screenshots ==
 
