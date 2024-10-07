@@ -45,6 +45,7 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 
 1. Instamojo Enable
 2. Razorpay Enable
+3. Knit Pay Connect Enable
 
 == Changelog ==
 =1.9=
