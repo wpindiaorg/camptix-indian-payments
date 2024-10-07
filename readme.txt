@@ -31,10 +31,12 @@ Feel free to post your feature requests, issues and pull requests to [Camptix In
 = How to Sign Up? =
 *Instamojo*: Signup at [Instamojo.com](https://www.instamojo.com/accounts/register/) and complete registration profile to get account activated.
 *Razorpay*: Signup at [Razorpay.com](https://dashboard.razorpay.com/#/access/signup) and complete registration profile to get account activated.
+*Knit Pay Connect*: Signup at Knit Pay is not required, just create an account in the desired payment gateway using their registration link. Knit Pay Connect supports integration with more than 15 Indian Payment Gateways.
 
 = Is there any documentation available? =
 *Instamojo*: Documentation available [here](https://docs.instamojo.com/v2/)
 *Razorpay*: Documentation available [here](https://docs.razorpay.com/)
+*Knit Pay Connect*: Install [Knit Pay](https://wordpress.org/plugins/knit-pay/) on your WordPress Instance, and connect that server with Camptix using [WordPress Rest API](https://developer.wordpress.org/rest-api/).
 
 = How to get Access Token and API Key? =
 *Instamojo*: Login > [API &amp; Plugins](https://www.instamojo.com/integrations) | Also Check [Youtube Video](https://www.youtube.com/watch?v=9j5RThz3FD0).
