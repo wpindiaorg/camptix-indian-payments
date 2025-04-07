@@ -306,7 +306,7 @@ class CampTix_Payment_Method_Instamojo extends CampTix_Payment_Method {
 			$long_url = $json_decode->payment_request->longurl;
 			header( 'Location:' . $long_url );
 		} else {
-			echo __( 'Invalid Insatmojo Access Key & Token', 'campt-indian-payment-gateway' );
+			echo __( 'Invalid Instamojo Access Key & Token', 'campt-indian-payment-gateway' );
 			return;
 		}
 
