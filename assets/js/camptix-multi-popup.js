@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
 	/**
 	 * Show extra attendee fields only if razorpay selected
 	 */
-	$('select[name="tix_payment_method"]', $form).on('change', function () {
+	$('[name="tix_payment_method"]', $form).on('change', function () {
 		
 	}).change();
 
@@ -88,10 +88,11 @@ jQuery(document).ready(function ($) {
 	 */
 	$form.on('submit', function (e) {
 	    
-	    var phone = $('.mobile').val();
+	    var has_phone_field = $('.mobile').length > 0,
+	        phone = $('.mobile').val() || '';
         phone = phone.replace(/[^0-9]/g,'');
 
-        if(!($.isNumeric(phone))){
+        if(has_phone_field && !($.isNumeric(phone))){
             $('.message').text('Please Enter Only Numbers');
             $('.message').css('color','red');
             $('.mobile').val('');
@@ -99,7 +100,7 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
 		return false;
         }else
-        if (phone.length < 10 )
+        if (has_phone_field && phone.length < 10 )
         {
             //alert('Phone number must be 10 digits.');
             $('.message').text('Please Enter correct Mobile Number Or Number with STD Code');
